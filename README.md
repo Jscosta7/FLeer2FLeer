@@ -23,6 +23,7 @@ Recomenda-se a execução sob as seguintes condições:
 Para o Demo Visual:
 * **Sistema Operacional:** Ubuntu 20.04/22.04, Debian 12 ou Windows (via WSL2 + Docker Desktop).
 * **Hardware Mínimo:** 2 CPUs (2.0GHz) e 8GB de memória RAM.
+  
 Para o experimento de tráfego:
 * **Sistema Operacional:** Ubuntu 20.04/22.04, Debian 12 ou Windows (via WSL2 + Docker Desktop).
 * **Hardware sugerido:** Intel i9-10900 CPUs, 32GB RAM, 20 threads.

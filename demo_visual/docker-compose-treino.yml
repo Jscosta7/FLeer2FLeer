@@ -1,0 +1,33 @@
+services:
+  server_live:
+    build: .
+    volumes:
+      - ../src:/app
+    command: python -u Federations/server_f2f.py --port 8080 --id "67d47328ca252c3f49b7124d" --indexador_host demo_visual-indexador-1 --min_clients 2 --rounds 2
+    networks:
+      - fl_demo_net
+
+  client_live_1:
+    build: .
+    volumes:
+      - ../src:/app
+    command: python -u uploads/Client_arg.py --server_address "server_live:8080"
+    depends_on:
+      - server_live
+    networks:
+      - fl_demo_net
+
+  client_live_2:
+    build: .
+    volumes:
+      - ../src:/app
+    command: python -u uploads/Client_arg.py --server_address "server_live:8080"
+    depends_on:
+      - server_live
+    networks:
+      - fl_demo_net
+
+networks:
+  fl_demo_net:
+    external: true         
+    name: fl_demo_network  

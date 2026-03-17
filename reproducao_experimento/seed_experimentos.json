@@ -1,0 +1,279 @@
+[
+  {
+    "_id": {
+      "$oid": "67d349b6ca252c3f49b71245"
+    },
+    "Category": "Linear Regression",
+    "Application": "Computer Vision",
+    "Model_Size": "127 Mb",
+    "Downloads": 0,
+    "tags": [
+      "LINEAR",
+      "REGRESSION",
+      "COMPUTER",
+      "VISION"
+    ],
+    "Training_Server": "arq_1",
+    "Client_archive": [
+      {
+        "filename": "Client6.py",
+        "path": "uploads/Client6.py",
+        "uploaded_at": {
+          "$date": "2025-09-24T13:26:45.497Z"
+        }
+      }
+    ],
+    "Average_round_duration": 0,
+    "Completed_Rounds": 0,
+    "Sever_status": "offline",
+    "Total_clients": 0,
+    "Training_Parameters": {
+      "Training_status": "finished",
+      "Total_Rounds": 0,
+      "Current_Round": 0,
+      "Minimun_clients": 0,
+      "fraction_fit": 0,
+      "Connected_client": 0
+    },
+    "Last_update": null,
+    "Last_Update": null
+  },
+  {
+    "_id": {
+      "$oid": "67d349b6ca252c3f49b71246"
+    },
+    "Category": "Logical Regression",
+    "Application": "Autonomous Vehicles",
+    "Model_Size": "786 Mb",
+    "Downloads": 0,
+    "tags": [
+      "LOGICAL",
+      "REGRESSION",
+      "VEHICLES",
+      "AUTONOMOUS"
+    ],
+    "Training_Server": "arq_2",
+    "Client_archive": [
+      {
+        "filename": "Client7.py",
+        "path": "uploads/Client7.py",
+        "uploaded_at": {
+          "$date": "2025-09-24T13:25:08.531Z"
+        }
+      }
+    ],
+    "Average_round_duration": 0,
+    "Completed_Rounds": 0,
+    "Sever_status": "offline",
+    "Total_clients": 0,
+    "Training_Parameters": {
+      "Training_status": "finished",
+      "Total_Rounds": 0,
+      "Current_Round": 0,
+      "Minimun_clients": 0,
+      "fraction_fit": 0,
+      "Connected_client": 0
+    },
+    "Last_update": null,
+    "Last_Update": null
+  },
+  {
+    "_id": {
+      "$oid": "67d46f5bca252c3f49b7124b"
+    },
+    "Category": "Neural Network",
+    "Application": "Recommendation System",
+    "Model_Size": "2.03 Gb",
+    "Downloads": 0,
+    "tags": [
+      "NEURAL",
+      "NETWORK",
+      "RECOMMENDATION",
+      "SYSTEM"
+    ],
+    "Training_Server": "arq_3",
+    "Client_archive": [
+      {
+        "filename": "Client1.py",
+        "path": "uploads/Client1.py",
+        "uploaded_at": {
+          "$date": "2025-06-07T19:38:48.779Z"
+        }
+      }
+    ],
+    "last_update": {
+      "$date": "2025-09-13T19:23:46.834Z"
+    },
+    "Average_round_duration": 0,
+    "Completed_Rounds": 0,
+    "Sever_status": "offline",
+    "Total_clients": 0,
+    "Training_Parameters": {
+      "Training_status": "finished",
+      "Total_Rounds": 0,
+      "Current_Round": 0,
+      "Minimun_clients": 0,
+      "fraction_fit": 0,
+      "Connected_client": 0
+    },
+    "Last_update": null,
+    "Last_Update": null
+  },
+  {
+    "_id": {
+      "$oid": "67d46f5bca252c3f49b7124c"
+    },
+    "Category": "Linear Regression",
+    "Application": "Finance",
+    "Model_Size": "114 Mb",
+    "Downloads": 0,
+    "tags": [
+      "LINEAR",
+      "REGRESSION",
+      "FINANCE"
+    ],
+    "Training_Server": "arq_4",
+    "Client_archive": [
+      {
+        "filename": "Client5.py",
+        "path": "uploads/Client5.py",
+        "uploaded_at": {
+          "$date": "2025-09-24T13:17:37.887Z"
+        }
+      }
+    ],
+    "Average_round_duration": 0,
+    "Completed_Rounds": 0,
+    "Sever_status": "offline",
+    "Total_clients": 0,
+    "Training_Parameters": {
+      "Training_status": "finished",
+      "Total_Rounds": 0,
+      "Current_Round": 0,
+      "Minimun_clients": 0,
+      "fraction_fit": 0,
+      "Connected_client": 0
+    },
+    "Last_update": null,
+    "Last_Update": null
+  },
+  {
+    "_id": {
+      "$oid": "67d47328ca252c3f49b7124d"
+    },
+    "Category": "Q-Learning",
+    "Application": "Computer Vision",
+    "Model_Size": "1.17 Gb",
+    "Downloads": 0,
+    "tags": [
+      "Q-LEARNING",
+      "COMPUTER",
+      "VISION"
+    ],
+    "Training_Server": "arq_5",
+    "Client_archive": [
+      {
+        "filename": "Client4.py",
+        "path": "uploads/Client4.py",
+        "uploaded_at": {
+          "$date": "2025-09-24T13:12:14.345Z"
+        }
+      }
+    ],
+    "Average_round_duration": 0,
+    "Completed_Rounds": 0,
+    "Sever_status": "offline",
+    "Total_clients": 0,
+    "Training_Parameters": {
+      "Training_status": "finished",
+      "Total_Rounds": 0,
+      "Current_Round": 0,
+      "Minimun_clients": 0,
+      "fraction_fit": 0,
+      "Connected_client": 0
+    },
+    "Last_update": null,
+    "Last_Update": null
+  },
+  {
+    "_id": {
+      "$oid": "67d47328ca252c3f49b7124e"
+    },
+    "Category": "Linear Regression",
+    "Application": "Medical Diagnosis",
+    "Model_Size": "567 Mb",
+    "Downloads": 0,
+    "tags": [
+      "LINEAR",
+      "REGRESSION",
+      "MEDICAL",
+      "DIAGNOSIS"
+    ],
+    "Training_Server": "arq_6",
+    "Client_archive": [
+      {
+        "filename": "Client3.py",
+        "path": "uploads/Client3.py",
+        "uploaded_at": {
+          "$date": "2025-09-24T13:10:10.115Z"
+        }
+      }
+    ],
+    "Average_round_duration": 0,
+    "Completed_Rounds": 0,
+    "Sever_status": "offline",
+    "Total_clients": 0,
+    "Training_Parameters": {
+      "Training_status": "finished",
+      "Total_Rounds": 0,
+      "Current_Round": 0,
+      "Minimun_clients": 0,
+      "fraction_fit": 0,
+      "Connected_client": 0
+    },
+    "Last_update": null,
+    "Last_Update": {
+      "$date": "2026-02-11T21:58:31.394Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "67d47328ca252c3f49b7124f"
+    },
+    "Category": "Gaussian Mixture",
+    "Application": "Natural Language Processing",
+    "Model_Size": "4.68 Gb",
+    "Downloads": 0,
+    "tags": [
+      "GAUSSIAN",
+      "MIXTURE",
+      "NATURAL",
+      "LANGUAGE",
+      "PROCESSING"
+    ],
+    "Training_Server": "arq_7",
+    "Client_archive": [
+      {
+        "filename": "Client2.py",
+        "path": "uploads/Client2.py",
+        "uploaded_at": {
+          "$date": "2025-09-24T13:08:23.426Z"
+        }
+      }
+    ],
+    "Average_round_duration": 0,
+    "Completed_Rounds": 0,
+    "Sever_status": "offline",
+    "Total_clients": 0,
+    "Training_Parameters": {
+      "Training_status": "finished",
+      "Total_Rounds": 0,
+      "Current_Round": 0,
+      "Minimun_clients": 0,
+      "fraction_fit": 0,
+      "Connected_client": 0
+    },
+    "Last_update": null,
+    "Last_Update": null
+  }
+]

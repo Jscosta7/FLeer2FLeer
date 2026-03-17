@@ -1,0 +1,5 @@
+node_modules
+dados_mongo
+.git
+__pycache__
+*.pyc

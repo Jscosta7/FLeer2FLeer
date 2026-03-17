@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Site de Servidores de Aprendizado Federado"> 
+  <link rel ="stylesheet" href="/stylesheets/trainingstyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <title>FL WebServer</title>
+</head>
+<body>
+<div class="screen">
+    <div class="side-menu">
+        <div class="menu-header">
+        <a href="/" class="menu-logo">
+            <i class="fa-solid fa-network-wired"></i>
+            <h2>FL WebServer</h2>
+        </a>
+    </div>
+
+    <nav class="menu-nav">
+        <ul>
+            <li>
+                <a href="/#" class="active">
+                    <i class="fa-solid fa-table-list"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-handshake"></i>
+                    <span>Be a server</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <span>Report</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="menu-footer">
+        <a href="#">
+            <i class="fa-regular fa-user"></i>
+            <span>User</span>
+        </a>
+        <a href="#">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+
+    </div>
+    <div class="screen-training">
+        <div class="training-content">
+    
+    <div class="training-header">
+        <h1><%= server.Category %>: <span><%= server.Application %></span></h1>
+    </div>
+
+    <div class="metrics-grid">
+        
+        <div class="metric-card ">
+            <div class="card-header">
+                <span class="card-icon"><i class="fa-solid fa-dumbbell"></i></span>
+                <h3 class="card-title">Round Status</h3>
+            </div>
+            <div class="card-value" id="training-status"><%= (server.Training_Parameters?.Training_status || 'N/A').replaceAll('_', ' ') %></div>
+        </div>
+
+        <div class="metric-card card-large">
+            <div class="card-header">
+                <span class="card-icon"><i class="fa-solid fa-bars-progress"></i></span>
+                <h3 class="card-title">Round Progress</h3>
+            </div>
+            <div class="card-value">
+                <span id="current-round"><%= server.Training_Parameters?.Current_Round || 0 %></span> / 
+                <span id="total-rounds"><%= server.Training_Parameters?.Total_Rounds || 0 %></span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="card-header">
+                <span class="card-icon"><i class="fa-solid fa-users"></i></span>
+                <h3 class="card-title">Connected Clients</h3>
+            </div>
+            <div class="card-value" id="connected-clients"><%= server.Training_Parameters?.Connected_client || 0 %></div>
+        </div>
+
+        <div class="metric-card">
+            <div class="card-header">
+                <span class="card-icon"><i class="fa-solid fa-filter"></i></span>
+                <h3 class="card-title">Minimum Clients</h3>
+            </div>
+            <div class="card-value" id="min-clients"><%= server.Training_Parameters?.Minimun_clients || 0 %></div>
+        </div>
+
+        <div class="metric-card">
+            <div class="card-header">
+                <span class="card-icon"><i class="fa-solid fa-users"></i></span>
+                <h3 class="card-title">Fraction Fit</h3>
+            </div>
+            <div class="card-value" id="frac-fit"><%= server.Training_Parameters?.fraction_fit || 0 %></div>
+        </div>
+
+    </div>
+</div>
+
+    </div>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+
+    // 1. A FUNÇÃO QUE ATUALIZA A LARGURA DA BARRA
+function updateProgressBar(current, total) {
+    const progressBar = document.getElementById('progress-bar');
+    
+    // Proteção para evitar erros se o elemento não existir ou o total for 0
+    if (!progressBar) return;
+    if (total <= 0) {
+        progressBar.style.width = '0%';
+        return;
+    }
+    
+    const percentage = (current / total) * 100;
+    progressBar.style.width = percentage + '%';
+}
+
+
+  
+  (function initProgressFromDOM() {
+    const cur = parseInt((document.getElementById('current-round')?.textContent || '0'), 10);
+    const tot = parseInt((document.getElementById('total-rounds')?.textContent || '0'), 10);
+    updateProgressBar(Number.isFinite(cur) ? cur : 0, Number.isFinite(tot) ? tot : 0);
+  })();
+
+
+  socket.on('statusUpdate', (data) => {
+    if(data.id !== "<%= server._id %>") return;
+
+    document.getElementById('training-status').textContent = (data.Training_status).replaceAll('_', ' ');
+    document.getElementById('current-round').textContent = data.Current_Round;
+    document.getElementById('total-rounds').textContent = data.Total_Rounds;
+    document.getElementById('min-clients').textContent = data.Minimun_clients;
+    document.getElementById('frac-fit').textContent = data.fraction_fit;
+
+        updateProgressBar(data.Current_Round, data.Total_Rounds);
+  });
+
+  socket.on('clientsUpdate', (data) => {
+    if(data.id !== "<%= server._id %>") return;
+
+  // atualiza status e clientes conectados
+  const statusCell = document.getElementById('training-status');
+  const connectedCell = document.getElementById('connected-clients');
+
+  if(statusCell) statusCell.textContent = (data.Training_status).replaceAll('_', ' ');
+  if(connectedCell) connectedCell.textContent = data.clients || 0;
+
+  });
+</script>
+</body>
+</html>

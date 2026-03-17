@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be a Server - FL WebServer</title>
+  
+  <link rel ="stylesheet" href="/stylesheets/style.css">
+  <link rel ="stylesheet" href="/stylesheets/trainingstyle.css">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+    
+    .main-content {
+        display: flex;
+        justify-content: center; 
+        align-items:center;     
+        height: 100vh;
+        background-color: #f0f2f5;
+        padding: 20px; 
+        box-sizing: border-box;
+        overflow: hidden; 
+    }
+
+    
+    .server-card-large {
+        background-color: #ffffff;
+        border-radius: 20px; 
+        box-shadow: 0 20px 50px -10px rgba(0,0,0,0.15); 
+        width: 70vw; 
+        height: 85vh; 
+        max-width: 1400px;
+        min-width: 600px; 
+        padding: 50px; 
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto; 
+    }
+    .form-group { margin-bottom: 30px; }
+    
+    .form-label { 
+        display: block;
+        font-weight: 700; 
+        color: #1a2c4e; 
+        font-size: 1.1rem; 
+        margin-bottom: 12px;
+    }
+    
+    .form-input { 
+        width: 100%; 
+        padding: 15px; 
+        font-size: 1.1rem;
+        border: 2px solid #e2e8f0; 
+        border-radius: 10px; 
+        font-family: 'Inter', sans-serif; 
+        box-sizing: border-box; 
+    }
+    
+    .form-input:focus, select.form-input:focus { outline: none; border-color: #63DBB8; }
+
+    .form-row-dual { display: flex; gap: 40px; } 
+
+    .upload-area {
+        border: 3px dashed #cbd5e0;
+        background-color: #f8fafc;
+        padding: 50px; 
+        text-align: center;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .upload-area:hover { border-color: #63DBB8; background-color: rgba(99, 219, 184, 0.1); }
+
+    .form-actions { 
+        display: flex; 
+        justify-content: flex-end; 
+        align-items: center; 
+        gap: 25px; 
+        margin-top: auto;
+        padding-top: 40px; 
+        border-top: 2px solid #f1f5f9; 
+    }
+    
+    .btn-primary { 
+        background-color: #63DBB8; 
+        color: #111214; 
+        padding: 18px 40px;
+        border: none; 
+        border-radius: 10px; 
+        font-size: 1.2rem; 
+        font-weight: 700; 
+        cursor: pointer; 
+        transition: transform 0.1s ease; 
+        display: flex; align-items: center; gap: 12px; 
+    }
+    .btn-primary:hover { transform: scale(1.02); background-color: #4acda3; }
+    
+    .btn-secondary { 
+        font-family: Helvetica;
+        background-color: transparent; 
+        color: #64748b; 
+        padding: 15px 30px; 
+        border: 2px solid transparent; 
+        border-radius: 10px; 
+        text-decoration: none; 
+        font-weight: 600; 
+        font-size: 1.1rem; 
+    }
+    .btn-secondary:hover { color: #334155; background-color: #e2e8f0; }
+    </style>
+</head>
+
+<body class="page-training">
+
+<div class="screen">
+    
+    <div class="side-menu">
+        <div class="menu-header">
+            <a href="/" class="menu-logo">
+                <i class="fa-solid fa-network-wired"></i>
+                <h2>FL WebServer</h2>
+            </a>
+        </div>
+
+        <nav class="menu-nav">
+            <ul>
+                <li>
+                    <a href="/">
+                        <i class="fa-solid fa-table-list"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/be_a_server" class="active">
+                        <i class="fa-solid fa-handshake"></i>
+                        <span>Be a server</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/report">
+                        <i class="fa-solid fa-bullhorn"></i>
+                        <span>Report</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="menu-footer">
+            <a href="#">
+                <i class="fa-regular fa-user"></i>
+                <span>User</span>
+            </a>
+            <a href="#">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content" style="padding: 2rem; width: 100%; display: flex; justify-content: center;">
+        
+        <div class="server-card" style="max-width: 800px; width: 100%; height: fit-content;">
+            
+            <h1 style="font-size: 2.8rem ;border-bottom: 1px solid #63DBB8 ; padding-bottom: 10px; margin-bottom: 20px;">
+                <i class="fa-solid fa-server" style="color: #63DBB8; margin-right: 10px;"></i>
+                Register New Node
+            </h1>
+            
+            <p style="font-size: 1.25rem; color: #666; margin-bottom: 30px;">
+                Join the Federation. Share your computational resources to help train global models securely.
+            </p>
+
+            <form action="/be_a_server" method="POST" enctype="multipart/form-data">
+                
+                <div class="form-row-dual">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">Category</label>
+                        <select class="form-input" name="category">
+                            <option value="Neural Network">Neural Network</option>
+                            <option value="Linear Regression">Linear Regression</option>
+                            <option value="Gaussian Mixture">Gaussian Mixture</option>
+                            <option value="Q-Learning">Q-Learning</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">Application Area</label>
+                        <input type="text" class="form-input" name="application" placeholder="e.g., Medical Imaging" required>
+                    </div>
+                </div>
+
+                <div class="form-row-dual">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">Hardware Description (Optional)</label>
+                        <input type="text" class="form-input" name="hardware" placeholder="e.g., 8x NVIDIA A100">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Upload Client Code (.py)</label>
+                    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                        <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.5rem; color: #63DBB8; margin-bottom: 10px;"></i>
+                        <p style="color: #555; margin: 0;"><strong>Click to upload</strong> or drag and drop</p>
+                        <p style="color: #999; font-size: 0.8rem; margin-top: 5px;">Python files only (client.py)</p>
+                        <input type="file" id="fileInput" name="clientFile" style="display: none;" onchange="fileSelected(this)" required accept=".py">
+                    </div>
+                    <p id="fileNameDisplay" style="margin-top: 5px; color: #63DBB8; font-weight: bold; display: none;"></p>
+                </div>
+
+                <div class="form-actions">
+                    <a href="/" class="btn-secondary">Cancel</a>
+                    <button type="submit" class="btn-primary">
+                        Submit Application <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function fileSelected(input) {
+        const display = document.getElementById('fileNameDisplay');
+        if (input.files && input.files[0]) {
+            display.style.display = 'block';
+            display.textContent = 'Selected file: ' + input.files[0].name;
+        }
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro
+      - ./seed_servidores.json:/docker-entrypoint-initdb.d/seed_servidores.json:ro
+      - mongo_demo_data:/data/db
+    networks:
+      - fl_demo_net
+
+  indexador:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ../src:/app
+    command: sh -c "npm install && node ./bin/www"
+    ports:
+      - "4000:3000"
+    environment:
+      - MONGO_HOST=mongodb
+    depends_on:
+      - mongodb
+    networks:
+      - fl_demo_net
+
+networks:
+  fl_demo_net:
+    name: fl_demo_network 
+
+volumes:
+  mongo_demo_data:
+    name: fleer2fleer_demo_data

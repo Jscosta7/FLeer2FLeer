@@ -1,0 +1,252 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica;
+}
+
+.screen{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    border-width: 0px;
+    box-sizing: border-box;
+}
+
+/* 1. Container Geral do Menu */
+.side-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 360px; /* Largura fixa para o menu */
+    height: 100vh;
+    background-color: #121212; /* Um tom mais escuro que o conteúdo */
+    padding-top: 2rem; /* Espaçamento interno */
+    padding-bottom: 1rem;
+    border-right: 1px solid #2a2a2a; /* Linha sutil para separar */
+    box-sizing: border-box;
+    flex-shrink: 0; /* Impede que o menu encolha */
+}
+
+/* 2. Cabeçalho (Logo) */
+.menu-header {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.menu-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #E2E8F0;
+}
+
+.menu-logo i {
+    font-size: 2.2rem;
+    color: #63DBB8; /* Sua cor de destaque */
+}
+
+.menu-logo h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* 3. Navegação Principal */
+.menu-nav ul {
+    list-style-type: none; /* Remove as bolinhas da lista */
+    padding: 0;
+    margin: 0;
+}
+
+.menu-nav li {
+    margin-bottom: 0.5rem; /* Espaço entre os itens do menu */
+}
+
+.menu-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #9d9d9d; /* Cor padrão para os links */
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Ícones dentro dos links */
+.menu-nav a i {
+    font-size: 1.5rem;
+    width: 24px; /* Largura fixa para alinhar o texto perfeitamente */
+    text-align: center;
+}
+
+/* --- ESTADOS INTERATIVOS --- */
+
+/* Efeito ao passar o mouse em um link */
+.menu-nav a:hover {
+    background-color: #2a2a2a;
+    color: #FFFFFF;
+    padding-left:2.5rem;
+    padding-right:2.5rem;
+
+}
+
+/* Estilo do link ATIVO (página atual) */
+.menu-nav a.active {
+    background-color: #63DBB8; /* Sua cor de destaque */
+    color: #111214; /* Texto escuro para contraste */
+    font-weight: 600;
+    padding-left:2.5rem;
+    padding-right:2.5rem;
+}
+
+/* 4. Rodapé do Menu */
+.menu-footer {
+    margin-top: auto; /* A MÁGICA: Empurra o rodapé para o final do menu */
+    padding-top: 1rem;
+    border-top: 1px solid #2a2a2a;
+}
+
+/* Links do rodapé (reutilizam o estilo dos links de navegação) */
+.menu-footer a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #9d9d9d;
+    transition: background-color 0.2s;
+}
+
+.menu-footer a:hover {
+    background-color: #2a2a2a;
+}
+
+.menu-footer a i {
+    font-size: 1.5rem;
+    width: 24px;
+    text-align: center;
+}
+
+.screen-training{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    flex-grow: 1; /* A MÁGICA: Faz esta div crescer e ocupar todo o espaço restante */
+    
+    background-color: #1C1C1C;
+    height: 100vh;
+    overflow-y: auto; /* IMPORTANTE: Adiciona uma barra de rolagem AQUI se a tabela for muito grande */
+    box-sizing: border-box;
+}
+
+/* ==================================================== */
+/* --- ESTILOS PARA A TELA DE DETALHES DO TREINAMENTO --- */
+/* ==================================================== */
+
+/* Container principal da área de treinamento */
+.screen-training {
+    flex-grow: 1; /* Faz a área ocupar todo o espaço restante */
+    height: 100vh;
+    overflow-y: auto; /* Adiciona rolagem SÓ AQUI se o conteúdo for grande */
+    background-color: #1C1C1C;
+}
+
+/* Container interno para adicionar espaçamento */
+.training-content {
+    padding: 1.5rem 3rem; /* Espaçamento interno (32px vertical, 48px horizontal) */
+}
+
+/* 1. Título da Página */
+.training-header h1 {
+    font-size: 2.2rem; /* Título bem grande */
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #2a2a2a;
+    padding-bottom: 0.75rem;
+}
+.training-header h1 span {
+    color: #63DBB8; /* Cor de destaque para o nome da aplicação */
+    font-weight: 400;
+}
+
+/* 2. Grade de Cards */
+.metrics-grid {
+    display: grid;
+    /* Mágica da responsividade: cria colunas de no mínimo 250px */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.25rem; /* Espaço entre os cards */
+}
+
+/* Estilo de cada card individual */
+.metric-card {
+    background-color: #121212; /* Mesmo fundo do menu para coesão */
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease-in-out;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px); /* Efeito de elevação */
+    border-color: #63DBB8;
+}
+
+/* Faz o card de progresso ocupar duas colunas se houver espaço */
+.card-large {
+    grid-column: span 2;
+}
+@media (max-width: 860px) { /* Em telas menores, ocupa só uma */
+    .card-large { grid-column: span 1; }
+}
+
+
+.metric-card .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.metric-card .card-icon i {
+    font-size: 1.5rem;
+    color: #63DBB8; 
+
+}
+.metric-card .card-title {
+    font-size: 1rem;
+    color: #9d9d9d;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.metric-card .card-value {
+    font-size: 2.2rem; /* Valor BEM GRANDE */
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-top: 0.75rem; /* Espaço entre o título e o valor */
+    flex-grow: 1; /* Garante que o valor empurre a barra de progresso para baixo */
+    text-transform: capitalize;
+}
+
+/* Barra de progresso dentro do card */
+.progress-bar-container {
+    margin-top: 0.75rem;
+    width: 100%;
+    height: 10px;
+    background-color: #2a2a2a;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    width: 0%; /* JS atualiza isso */
+    background-color: #63DBB8;
+    border-radius: 5px;
+    transition: width 0.4s ease-in-out;
+}

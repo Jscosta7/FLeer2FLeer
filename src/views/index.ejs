@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Site de Servidores de Aprendizado Federado"> 
+  <link rel ="stylesheet" href="/stylesheets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <title>FL WebServer</title>
+</head>
+<body>
+<div class="screen">
+    <div class="side-menu">
+      <div class="menu-header">
+    <a href="/" class="menu-logo">
+        <i class="fa-solid fa-network-wired"></i>
+        <h2>FL WebServer</h2>
+    </a>
+</div>
+
+<nav class="menu-nav">
+    <ul>
+        <li>
+            <a href="/#" class="active">
+                <i class="fa-solid fa-table-list"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="/be_a_server">
+                <i class="fa-solid fa-handshake"></i>
+                <span>Be a server</span>
+            </a>
+        </li>
+        <li>
+            <a href="/report">
+                <i class="fa-solid fa-bullhorn"></i>
+                <span>Report</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="menu-footer">
+    <a href="#">
+        <i class="fa-regular fa-user"></i>
+        <span>User</span>
+    </a>
+    <a href="#">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+    </a>
+</div>
+  
+    </div>
+<div class="table-screen">
+<header>
+    <div class="header-brand">
+      <a href="https://www.gta.ufrj.br/">GTA/UFRJ</a>
+    </div>
+    <form class="search-bar" action="/search" method="get">
+      <input class="text-field" type="text" name="query" placeholder="Pesquisar..." />
+      <button type="submit" class="submit-button">
+          <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </form>
+  <div class="header-buttons">
+    <div class="dropdown">
+      <button class="dropbtn">Info</button>
+      <div class="dropdown-content">
+        <a href="#">What is FL?</a>
+        <a href="#">Rules</a>
+        <a href="#">About</a>
+      </div>        
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Guest<i class="fa-solid fa-circle-user"></i></button>
+      <div class="dropdown-content">
+        <a href="#">Login</a>
+        <a href="#">Register</a>
+      </div>
+    </div>
+  </div>        
+</header>
+<%
+if(results){
+    if(list.length > 0){
+%>
+<table id="server-table">
+  <thead>
+    <tr>
+      <th>Server Status</th>
+      <th>Category</th>
+      <th>Application</th>
+      <th>Client archive</th>
+      <th class="coluna-downloads"><i class="fa-solid fa-file-arrow-down"></i></th>
+      <th class="coluna-rounds"><i class="fa-solid fa-square-check"></i></th>
+      <th>Round Duration</th>
+      <th>Last Update</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="server-table-body">
+    <% list.forEach(function(item){ %>
+    <tr id="server-<%= item._id %>">
+      <td id="status-<%= item._id %>" data-value="<%= item.Sever_status %>">
+        <div class="status-badge <%= item.Sever_status === 'online' ? 'online' : 'offline' %>">
+          <span class="status-dot"></span>
+          <span class="status-text"><%= item.Sever_status %></span>
+        </div>
+      </td>
+      <td><%= item.Category %></td>
+      <td><%= item.Application %></td>
+      <td class="Client-archive" ><% if (item.Client_archive && item.Client_archive.length > 0) { %>
+        <ul>
+          <% item.Client_archive.forEach(function(file) { %>
+        <li><a href="/download/<%= item._id %>/<%= file.filename %>" download><%= file.filename %> <i class="fa-solid fa-download"></i></a></li>
+          <% }); %>
+        </ul>
+          <% } else { %> Nenhum arquivo <% } %>
+      </td>
+      <td id="downloads-<%= item._id %>"><%= item.Downloads %></td>
+      <td id="completed-<%= item._id %>"><%= item.Completed_Rounds %></td>
+      <td id="avg-<%= item._id %>"><%= item.Average_round_duration? Math.round(item.Average_round_duration) : '-' %></td>
+      <% let ts = item.Last_Update ? item.Last_Update.toISOString() : '' %>
+      <td id="last-update-<%= item._id %>" data-timestamp="<%= ts %>">
+      <%= ts || '-' %>
+      </td>
+      <td class="server-training">
+        <% if(item.Sever_status === 'online'){ %>
+          <a href="/training/<%= item._id %>" class="btn btn-running">
+              <span>See Training</span>
+              <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        <% } else { %>
+          <a href="/training/<%= item._id %>?offline=true" class="btn btn-history">
+              <span>See History</span>
+              <i class="fa-solid fa-eye"></i>
+          </a>
+        <% } %>
+      </td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
+<% } else{ %>
+<b>Nenhum resultado encontrado para <%= search %>!</b>
+<% 
+}}else{ %>
+  <table id="server-table">
+    <thead>
+      <tr>
+      <th>Server Status</th>
+      <th>Category</th>
+      <th>Application</th>
+      <th>Client archive</th>
+      <th class="coluna-downloads"><i class="fa-solid fa-file-arrow-down"></i></th>
+      <th class="coluna-rounds"><i class="fa-solid fa-square-check"></i></th>
+      <th>Round Duration</th>
+      <th>Last Update</th>
+      <th></th>
+      </tr>
+    </thead>
+    <tbody id="server-table-body">
+      <% list.forEach(function(item){ %>
+      <tr id="server-<%= item._id %>">
+              <td id="status-<%= item._id %>" data-value="<%= item.Sever_status %>">
+        <div class="status-badge <%= item.Sever_status === 'online' ? 'online' : 'offline' %>">
+          <span class="status-dot"></span>
+          <span class="status-text"><%= item.Sever_status %></span>
+        </div>
+        <td><%= item.Category %></td>
+        <td><%= item.Application %></td>
+        <td class="Client-archive"><% if (item.Client_archive && item.Client_archive.length > 0) { %>
+          <ul>
+            <% item.Client_archive.forEach(function(file) { %>
+          <li><a href="/download/<%= item._id %>/<%= file.filename %>" download><%= file.filename %> <i class="fa-solid fa-download"></i></a></li>
+            <% }); %>
+          </ul>
+            <% } else { %> Nenhum arquivo <% } %>
+        </td>
+        <td id="downloads-<%= item._id %>"><%= item.Downloads %></td>
+        <td id="completed-<%= item._id %>"><%= item.Completed_Rounds %></td>
+        <td id="avg-<%= item._id %>"><%= item.Average_round_duration? Math.round(item.Average_round_duration) : '-' %></td>
+        <% let ts = item.Last_Update ? item.Last_Update.toISOString() : '' %>
+        <td id="last-update-<%= item._id %>" data-timestamp="<%= ts %>">
+          <%= ts || '-' %>
+        </td>
+      </td>
+      <td class="server-training">
+        <% if(item.Sever_status === 'online'){ %>
+          <a href="/training/<%= item._id %>" class="btn btn-running">
+              <span>See Training</span>
+              <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        <% } else { %>
+          <a href="/training/<%= item._id %>?offline=true" class="btn btn-history">
+              <span>See History</span>
+              <i class="fa-solid fa-eye"></i>
+          </a>
+        <% } %>
+      </td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+<%
+}%>
+</div>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+  
+socket.on("statusUpdate", (data) => {
+  console.log("Recebi:", data);
+  const lastUpdateCell = document.getElementById(`last-update-${data.id}`);
+  if(lastUpdateCell){
+    lastUpdateCell.dataset.timestamp = data.Last_Update; // atualiza o timestamp original
+    lastUpdateCell.textContent = timeAgo(data.Last_Update); // atualiza imediatamente
+  }
+
+  // ATUALIZAÇÃO DE DOWNLOADS EM TEMPO REAL
+    const downloadsCell = document.getElementById(`downloads-${data.id}`);
+    if (downloadsCell) {
+        downloadsCell.textContent = data.Downloads;
+    }
+
+  
+  const statusCell = document.getElementById(`status-${data.id}`);
+  if (statusCell) {
+    // Atualiza o data-value para a ordenação funcionar
+    statusCell.dataset.value = data.Sever_status;
+
+    // Determina qual classe de cor usar (online ou offline)
+    const statusClass = data.Sever_status === 'online' ? 'online' : 'offline';
+    
+    // Recria o HTML do badge dentro da célula para garantir que o estilo seja aplicado
+    statusCell.innerHTML = `
+        <div class="status-badge ${statusClass}">
+            <span class="status-dot"></span>
+            <span class="status-text">${data.Sever_status}</span>
+        </div>
+    `;
+  }
+
+
+  const avgCell = document.getElementById(`avg-${data.id}`);
+  const completedCell = document.getElementById(`completed-${data.id}`);
+
+  if (avgCell) avgCell.textContent = data.Average_round_duration ? Math.round(data.Average_round_duration) : '-';
+  if (completedCell) completedCell.textContent = data.Completed_Rounds;
+
+  const row = document.getElementById(`server-${data.id}`);
+  if(row){
+    const link = row.querySelector('a.btn');
+    if(link){
+      if(data.Sever_status === 'online'){
+        link.className = 'btn btn-running'; 
+        link.innerHTML = `<span>See Training</span><i class="fa-solid fa-arrow-right"></i>`;            
+        link.href = `/training/${data.id}`;
+      } else {
+        link.className = 'btn btn-history';
+        link.innerHTML = `<span>See History</span><i class="fa-solid fa-eye"></i>`;
+        link.href = `/training/${data.id}?offline=true`;
+      }
+    }
+  }
+
+  reattachSortEvents();
+});
+
+
+  function timeAgo(timestamp) {
+  const now = new Date();
+  const past = new Date(timestamp);
+  const diff = (now - past) / 1000; // diferença em segundos
+
+  if (diff < 60) {
+    return `${Math.floor(diff)}s`; // segundos
+  } else if (diff < 3600) {
+    return `${Math.floor(diff / 60)}m`; // minutos
+  } else if (diff < 86400) {
+    return `${Math.floor(diff / 3600)}h`; // horas
+  } else {
+    const days = Math.floor(diff / 86400);
+    return days === 1 ? '1d' : `${days}d`; // dias
+  }
+}
+
+
+// Função que atualiza todas as células de Last_Update
+function updateLastUpdateCells() {
+  document.querySelectorAll('[id^="last-update-"]').forEach(cell => {
+    const timestamp = cell.dataset.timestamp;
+    if (timestamp) cell.textContent = timeAgo(timestamp);
+  });
+}
+
+// Atualiza imediatamente ao carregar a página
+updateLastUpdateCells();
+
+// Atualiza a cada 10 segundos
+setInterval(updateLastUpdateCells, 10000);
+let sortPriority = [];
+let sortDirections = {};
+
+// Utilitários
+function getTableForServer() {
+  // retorna a primeira table cujo id comece com "server" (server-table, serverTable, etc.)
+  return document.querySelector('table[id^="server"]');
+}
+
+function applySort(table) {
+  if (!table) return;
+  const tbody = table.tBodies[0];
+  if (!tbody) return;
+
+  const rows = Array.from(tbody.rows);
+  rows.sort((a, b) => {
+    for (let col of sortPriority) {
+      const cellA = a.cells[col];
+      const cellB = b.cells[col];
+      if (!cellA || !cellB) continue;
+
+      const rawA = (cellA.dataset.value ?? cellA.dataset.timestamp ?? cellA.innerText).toString().trim();
+      const rawB = (cellB.dataset.value ?? cellB.dataset.timestamp ?? cellB.innerText).toString().trim();
+
+      const numA = parseFloat(rawA.replace(/[^\d\.\-eE]/g, ''));
+      const numB = parseFloat(rawB.replace(/[^\d\.\-eE]/g, ''));
+
+      let cmp = 0;
+      if (!isNaN(numA) && !isNaN(numB)) {
+        cmp = numA - numB;
+      } else {
+        cmp = rawA.localeCompare(rawB, undefined, {numeric: true, sensitivity: 'base'});
+      }
+
+      if (cmp !== 0) return sortDirections[col] ? cmp : -cmp;
+    }
+    return 0;
+  });
+
+  // re-append in sorted order
+  rows.forEach(r => tbody.appendChild(r));
+
+  // atualiza classes visuais nos headers desta tabela
+  if (table.tHead && table.tHead.rows[0]) {
+    Array.from(table.tHead.rows[0].cells).forEach(th => th.classList.remove('sorted-asc','sorted-desc'));
+    if (sortPriority.length) {
+      const top = sortPriority[0];
+      const header = table.tHead.rows[0].cells[top];
+      if (header) header.classList.add(sortDirections[top] ? 'sorted-asc' : 'sorted-desc');
+    }
+  }
+}
+
+function sortTableToggle(table, colIndex) {
+  // alterna direção para a coluna clicada
+  sortDirections[colIndex] = !sortDirections[colIndex];
+  // coloca coluna clicada no topo da prioridade
+  sortPriority = [colIndex, ...sortPriority.filter(c => c !== colIndex)];
+  applySort(table);
+}
+
+// Delegação de eventos: escuta cliques em qualquer <th> 
+document.addEventListener('click', (e) => {
+  const th = e.target.closest('th');
+  if (!th) return;
+  const table = th.closest('table');
+  if (!table) return;
+  if (!table.id || !table.id.startsWith('server')) return;
+
+  // pega o índice real da célula
+  const colIndex = th.cellIndex;
+  sortTableToggle(table, colIndex);
+});
+
+function reattachSortEvents() {
+  const table = getTableForServer();
+  if (table) applySort(table);
+}
+
+(function addSortStyles(){
+  const style = document.createElement('style');
+  style.textContent = `
+    th { cursor: pointer; }
+    th.sorted-asc::after { content: " ▲"; font-size: 0.9em; color: inherit; }
+    th.sorted-desc::after { content: " ▼"; font-size: 0.9em; color: inherit; }
+  `;
+  document.head.appendChild(style);
+})();
+</script>
+
+</body>
+</html>

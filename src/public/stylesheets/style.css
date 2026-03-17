@@ -1,0 +1,523 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica;
+}
+
+.screen{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    border-width: 0px;
+    box-sizing: border-box;
+}
+
+
+/* 1. Container Geral do Menu */
+.side-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 360px; /* Largura fixa para o menu */
+    height: 100vh;
+    background-color: #121212; /* Um tom mais escuro que o conteúdo */
+    padding-top: 2rem; /* Espaçamento interno */
+    padding-bottom: 1rem;
+    border-right: 1px solid #2a2a2a; /* Linha sutil para separar */
+    box-sizing: border-box;
+    flex-shrink: 0; /* Impede que o menu encolha */
+}
+
+/* 2. Cabeçalho (Logo) */
+.menu-header {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.menu-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #E2E8F0;
+}
+
+.menu-logo i {
+    font-size: 2.2rem;
+    color: #63DBB8; /* Sua cor de destaque */
+}
+
+.menu-logo h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* 3. Navegação Principal */
+.menu-nav ul {
+    list-style-type: none; /* Remove as bolinhas da lista */
+    padding: 0;
+    margin: 0;
+}
+
+.menu-nav li {
+    margin-bottom: 0.5rem; /* Espaço entre os itens do menu */
+}
+
+.menu-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #9d9d9d; /* Cor padrão para os links */
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Ícones dentro dos links */
+.menu-nav a i {
+    font-size: 1.5rem;
+    width: 24px; /* Largura fixa para alinhar o texto perfeitamente */
+    text-align: center;
+}
+
+/* --- ESTADOS INTERATIVOS --- */
+
+/* Efeito ao passar o mouse em um link */
+.menu-nav a:hover {
+    background-color: #2a2a2a;
+    color: #FFFFFF;
+    padding-left:2.5rem;
+    padding-right:2.5rem;
+
+}
+
+/* Estilo do link ATIVO (página atual) */
+.menu-nav a.active {
+    background-color: #63DBB8; /* Sua cor de destaque */
+    color: #111214; /* Texto escuro para contraste */
+    font-weight: 600;
+    padding-left:2.5rem;
+    padding-right:2.5rem;
+}
+
+/* 4. Rodapé do Menu */
+.menu-footer {
+    margin-top: auto; /* A MÁGICA: Empurra o rodapé para o final do menu */
+    padding-top: 1rem;
+    border-top: 1px solid #2a2a2a;
+}
+
+/* Links do rodapé (reutilizam o estilo dos links de navegação) */
+.menu-footer a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #9d9d9d;
+    transition: background-color 0.2s;
+}
+
+.menu-footer a:hover {
+    background-color: #2a2a2a;
+}
+
+.menu-footer a i {
+    font-size: 1.5rem;
+    width: 24px;
+    text-align: center;
+}
+
+.table-screen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    flex-grow: 1; /* A MÁGICA: Faz esta div crescer e ocupar todo o espaço restante */
+    
+    background-color: #1C1C1C;
+    height: 100vh;
+    overflow-y: auto; /* IMPORTANTE: Adiciona uma barra de rolagem AQUI se a tabela for muito grande */
+    box-sizing: border-box;
+}
+
+
+header {
+  display: flex;               /* Ativa o Flexbox */
+  background-color: #121212;
+  border-width: 0px; 
+  box-sizing: border-box;
+  width: 100%;
+  height: 11vh;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5 px;
+}
+
+.header-brand {
+  display: flex;               /* Ativa o Flexbox */
+  border-width: 0px; 
+  box-sizing: border-box;
+  border-style: solid;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  width: 30%;
+  padding-right: 90px;
+  text-decoration: none;
+  color: #9d9d9d;
+  font-size: 18px;
+}
+
+.header-brand a {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #E2E8F0;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.header-brand a:hover {
+    color: #63DBB8;
+}
+
+a {
+  text-decoration: none;
+  background-color: transparent;
+  color: #9d9d9d;
+  font-family: Roboto;
+}
+
+
+/* Container do formulário */
+.search-bar {
+    display: flex;
+    width: 40%; /* Mantém a largura no desktop */
+    height: 42px; /* Altura fixa para o container */
+    border: 1px solid #4A5568; /* Borda sutil no container */
+    border-radius: 6px;
+    background-color: #1C1C1C;
+    transition: all 0.2s ease-in-out; /* Para animar o efeito de foco */
+}
+
+/* Efeito de foco moderno */
+.search-bar:focus-within {
+    border-color: #63DBB8; /* Sua cor de destaque */
+    box-shadow: 0 0 0 3px rgba(64, 224, 208, 0.2); /* Efeito "glow" */
+}
+
+/* Campo de texto */
+.text-field {
+    flex-grow: 1; /* Faz o input crescer e ocupar o espaço disponível */
+    border: none; /* Remove a borda do input, pois já temos no container */
+    background-color: transparent; /* Fundo transparente */
+    padding: 0 14px;
+    color: #9d9d9d;
+    font-size: 1rem;
+    height: 100%;
+}
+
+.text-field:focus {
+    outline: none; /* Remove o contorno padrão ao clicar */
+}
+
+/* Botão de envio */
+.submit-button {
+    background-color: #63DBB8;
+    border: none;
+    border-radius: 0 4px 4px 0; /* Arredonda só os cantos da direita */
+    padding: 0 16px;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* Ícone dentro do botão */
+.submit-button i {
+    color: #111214;
+    font-size: 1.15rem;
+}
+/* SUBSTITUA SEU CSS ANTIGO POR ESTE BLOCO */
+
+/* 1. O container dos botões, agora flexível */
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Adiciona um pequeno espaço entre os botões "Info" e "Guest" */
+    padding-left: 100px;
+    padding-right: 150px
+
+}
+
+/* 2. O botão que abre o menu */
+.dropbtn {
+    display: flex; /* Para alinhar o texto e o ícone */
+    align-items: center;
+    gap: 8px; /* Espaço entre o texto e o ícone de seta */
+    font-weight: 600;
+    background-color: transparent;
+    color: #E2E8F0;
+    padding: 8px 16px; /* Aumenta a área clicável, dando "corpo" ao botão */
+    font-size: 1.1rem;
+    font-family: 'Inter', sans-serif;
+    border: none;
+    border-radius: 6px; /* Cantos arredondados */
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s; /* Transição suave */
+}
+
+/* Efeito ao passar o mouse no botão */
+.dropbtn:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Fundo sutil */
+    color: #FFFFFF; /* Texto mais claro */
+}
+
+/* Estilo para o ícone de seta dentro do botão */
+.dropbtn i {
+    font-size: 1.8rem; /* Deixa o ícone de seta um pouco menor e mais sutil */
+}
+
+/* 3. O container do menu suspenso */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px; /* ADICIONE ESTA LINHA */
+    margin-bottom: -8px; /* ADICIONE ESTA LINHA (Opcional, mas recomendado) */
+}
+
+/* 4. O menu em si, com estilo refinado */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0; /* Alinha o menu à direita, bom para responsividade */
+    margin-top: 8px; /* Pequeno espaço entre o botão e o menu */
+    background-color: #1C1C1C;
+    min-width: 180px;
+    border: 1px solid #2a2a2a; /* Borda sutil */
+    border-radius: 6px;
+    box-shadow: 0px 8px 30px 0px rgba(0,0,0,0.3);
+    z-index: 1;
+    overflow: hidden; /* Garante que os links respeitem os cantos arredondados */
+}
+
+/* Links dentro do menu */
+.dropdown-content a {
+    color: #9d9d9d;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Efeito hover nos links do menu */
+.dropdown-content a:hover {
+    background-color: #63DBB8; /* Sua cor de destaque */
+    color: #111214; /* Texto escuro para contrastar */
+}
+
+/* Lógica para mostrar o menu (já estava correta) */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+table {
+  width: 80%;
+  margin-top: 50px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #63DBB8;
+  border-radius: 8px;
+  border-collapse: collapse;
+  text-align: center;
+  background-color: #1c1c1c;
+  overflow: hidden;
+}
+thead {
+  background-color: #63DBB8;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #63DBB8;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #111214;
+}
+
+tbody {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #63DBB8;
+  border-radius: 4px;
+  color: #9d9d9d;
+}
+
+td{
+  border-width: 2px;
+  border-style: solid;
+  border-color: #111214;
+  color: #9d9d9d;
+  padding: 8px;
+  font-size: 15px;
+  font-weight: 500;
+}
+/* Ajuste na regra 'th' existente */
+th {
+    padding: 16px 20px; /* Mais espaçamento para "respirar" */
+    text-align: center; /* MUITO IMPORTANTE: Melhora a legibilidade */
+    font-size: 0.9rem; /* Um pouco menor, mais refinado */
+    font-weight: 700; /* Bold */
+    color: #111214;
+    text-transform: uppercase; /* Padrão de design para cabeçalhos de tabela */
+    letter-spacing: 0.5px; /* Leve espaçamento entre as letras */
+    cursor: pointer; /* Indica que o cabeçalho é clicável para ordenar */
+    white-space: nowrap; /* Evita que o texto quebre em duas linhas */
+    border-style: solid; /* Mantido do seu código */
+    border-color: #111214; /* Mantido do seu código */
+    border-width: 2px; /* Mantido do seu código */
+}
+
+/* Adicione estas novas regras ao seu CSS */
+
+/* Estilo da seta quando a coluna está ordenada (ascendente) */
+th.sorted-asc::after {
+    content: ' ▲'; /* Conteúdo adicionado pelo seu JS */
+    color: #111214;
+    opacity: 0.8; /* Deixa a seta um pouco mais sutil */
+}
+
+/* Estilo da seta quando a coluna está ordenada (descendente) */
+th.sorted-desc::after {
+    content: ' ▼'; /* Conteúdo adicionado pelo seu JS */
+    color: #111214;
+    opacity: 0.8;
+}
+
+
+.coluna-downloads{
+  width: 7vh
+}
+
+.coluna-rounds{
+  width: 10vh
+}
+
+th i {
+    font-size: 1.25rem;  /* Aumenta um pouco o tamanho do ícone */
+    color: #111214;     /* Garante que o ícone tenha a mesma cor do texto */
+    vertical-align: middle; /* Ajuda a alinhar o ícone com o texto */
+}
+
+.Client-archive a {
+    text-decoration: None;
+    color: #9d9d9d;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-family: 'Inter', sans-serif;
+    list-style-type: none;
+    font-weight: 600;
+}
+
+.Client-archive a:hover {
+    color: #63DBB8;
+}
+
+
+.Client-archive i {
+    padding-left: 3px;
+}
+
+.Client-archive ul {
+    list-style-type: none;
+}
+/* --- ESTILOS PARA O BADGE DE STATUS --- */
+
+.status-badge {
+    display: inline-flex;       /* Alinha a bolinha e o texto lado a lado */
+    align-items: center;        /* Centraliza verticalmente */
+    padding: 4px 10px;          /* Espaçamento interno (altura e largura) */
+    border-radius: 999px;       /* Deixa a caixinha com formato de pílula */
+    font-size: 0.85rem;
+    font-weight: 600;           /* Deixa o texto um pouco mais forte */
+    text-transform: capitalize; /* Deixa a primeira letra maiúscula (Online, Offline) */
+}
+
+/* A bolinha ao lado do texto */
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;         /* Garante que seja um círculo perfeito */
+    margin-right: 8px;          /* Espaço entre a bolinha e o texto */
+}
+
+/* --- CORES PARA O STATUS ONLINE --- */
+.status-badge.online {
+    background-color: rgba(46, 204, 113, 0.15); /* Fundo verde fosco/translúcido */
+    color: #2ECC71;                             /* Cor do texto verde */
+}
+.status-badge.online .status-dot {
+    background-color: #2ECC71; /* Cor da bolinha verde */
+}
+
+/* --- CORES PARA O STATUS OFFLINE --- */
+.status-badge.offline {
+    background-color: rgba(231, 76, 60, 0.15); /* Fundo vermelho fosco/translúcido */
+    color: #E74C3C;                            /* Cor do texto vermelho */
+}
+.status-badge.offline .status-dot {
+    background-color: #E74C3C; /* Cor da bolinha vermelha */
+}
+
+
+/* ================================================= */
+/* --- ESTILOS PARA OS BOTÕES DE AÇÃO NA TABELA --- */
+/* ================================================= */
+
+/* 1. Estilo base para ambos os botões */
+.server-training .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Espaço entre o texto e o ícone */
+    
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    white-space: nowrap;
+    border: 1px solid transparent; /* Prepara para o botão com contorno */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+/* 2. Estilo para o botão "Ver Detalhes" (ATIVO) */
+.server-training .btn-running {
+    background-color: #63DBB8; /* Sua cor de destaque */
+    color: #111214; /* Texto escuro para alto contraste */
+    border-color: #63DBB8;
+}
+
+.server-training .btn-running:hover {
+    background-color: #4acda3; /* Cor um pouco mais escura no hover */
+    transform: translateY(-2px); /* Efeito de elevação sutil */
+    box-shadow: 0 4px 12px rgba(99, 219, 184, 0.2); /* Sombra suave */
+}
+
+/* 3. Estilo para o botão "Ver Histórico" (INATIVO) */
+.server-training .btn-history {
+    background-color: transparent;
+    color: #A0AEC0; /* Um cinza claro para o texto */
+    border-color: #4A5568; /* Uma borda sutil */
+}
+
+.server-training .btn-history:hover {
+    background-color: #2D3748; /* Fundo escuro ao passar o mouse */
+    color: #FFFFFF; /* Texto branco para destacar */
+    border-color: #63DBB8; /* Borda na cor de destaque */
+}

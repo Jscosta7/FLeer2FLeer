@@ -1,0 +1,64 @@
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init-mongo-exp.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro
+      - ./seed_experimentos.json:/docker-entrypoint-initdb.d/seed_experimentos.json:ro
+      - mongo_data_exp:/data/db
+    networks:
+      - fl_network
+
+  indexador:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ../src:/app
+    command: sh -c "npm install && node ./bin/www"
+    ports:
+      - "4000:3000"
+    environment:
+      - MONGO_HOST=mongodb
+    depends_on:
+      - mongodb
+    networks:
+      - fl_network
+
+  server1:
+    build: .
+    volumes:
+      - ../src:/app
+    command: python -u Federations/server_f2f.py --port 8080 --id "67d349b6ca252c3f49b71245" --indexador_host indexador --min_clients 2 --rounds 2
+    depends_on:
+      - indexador
+    networks:
+      - fl_network
+
+  client1:
+    build: .
+    volumes:
+      - ../src:/app
+    command: python -u uploads/Client_arg.py --server_address "server1:8080"
+    depends_on:
+      - server1
+    networks:
+      - fl_network
+
+  client2:
+    build: .
+    volumes:
+      - ../src:/app
+    command: python -u uploads/Client_arg.py --server_address "server1:8080"
+    depends_on:
+      - server1
+    networks:
+      - fl_network
+
+networks:
+  fl_network:
+    driver: bridge
+
+volumes:
+  mongo_data_exp:
+    name: fleer2fleer_experimentos_data

@@ -2,7 +2,7 @@
 
 O objetivo deste artefato é disponibilizar a ferramenta **FLeer2FLeer**, permitindo tanto visualizar o uso da ferramenta e suas principais funcionalidades, quanto reproduzir o experimento de tráfego de rede relatado no artigo.
 
-Para garantir uma melhor organização e entendimento da ferramenta, o projeto foi dividido em tres pastas grandes módulos:
+Para garantir uma melhor organização e entendimento da ferramenta, o projeto foi dividido em tres pastas:
 1. **Demo Visual (`/demo_visual`)**: Responsável por possibilitar a visualização da interface da ferramenta e suas funcionalidades.
 2. **Reprodução de Experimentos (`/reproducao_experimentos`)**: Responsável por reproduzir fielmente o experimento citado, extraindo as métricas de tráfego (.pcap) de múltiplos cenários e analisando com o script pyhton.
 3. **A Ferramenta (`/src`)** : Onde estão localizados todos os arquivos que fazem parte do F2F.
@@ -12,19 +12,20 @@ Para garantir uma melhor organização e entendimento da ferramenta, o projeto f
 Os autores reivindicam os seguintes selos científicos para este artefato:
 * Artefatos Disponíveis (SeloD);
 * Artefatos Funcionais (SeloF);
+* Artefatos Sustentáveis (SeloS);
 * Experimentos Reprodutíveis (SeloR);
 
 ---
 
 ## Informações Básicas e Requisitos
-Os experimentos e a ferramenta foram rodados em máquinas diferentes, justamente pela diferença de requisitos de ambas execuções. 
-Recomenda-se a execução sob as seguintes condições:
 
-Para o Demo Visual:
+Os experimentos foram testados em dois ambientes, com as seguintes especificações:
+
+Ambiente 1 (mínimo):
 * **Sistema Operacional:** Ubuntu 20.04/22.04, Debian 12 .
 * **Hardware Mínimo:** 2 CPUs (2.0GHz) e 8GB de memória RAM.
   
-Para o experimento de tráfego:
+Ambiente 2 (sugerido):
 * **Sistema Operacional:** Ubuntu 20.04/22.04, Debian 12 .
 * **Hardware sugerido:** Intel i9-10900 CPUs, 32GB RAM, 20 threads.
 
@@ -34,31 +35,16 @@ Para o experimento de tráfego:
 A seguir, são apresentados os passos necessários para configurar as dependências:
 
 1. Git
-2. **Docker e Docker Compose (V2):** Essenciais para subir a infraestrutura.
+2. **Docker e Docker Compose:** Essenciais para subir a infraestrutura. Também é necessário para rodar os scripts analíticos finais.
 3. **Tcpdump e Tshark:** Necessários apenas para a etapa de Reprodução de Experimentos (captura e análise de pacotes).
-4. **Python 3.9+ e Pandas:** Necessários para rodar os scripts analíticos finais.
-
-### Github
-
-Instale o Git usando:
-```bash
-sudo apt-get update
-sudo apt-get install git-all
-```
-Crie uma conta no Github.
-
-Clone o repositório do projeto:
-```bash
-git clone [https://github.com/Jscosta7/FLeer2FLeer.git](https://github.com/Jscosta7/FLeer2FLeer.git)
-cd FLeer2FLeer
-```
 
 **Instalação rápida das ferramentas de rede (Linux/Ubuntu):**
+
 ```bash
 sudo apt update
-sudo apt install docker-ce docker-compose-plugin tcpdump tshark python3-pip -y
-pip3 install pandas
+sudo apt install docker-ce docker-compose-plugin tcpdump -y
 ```
+
 ## Visualização da Ferramenta (Demo Visual)
 1. Acesse o diretório onde esta contido o arquivo docker responsável pela demonstração:
 
@@ -78,7 +64,10 @@ Aguarde o download dos pacotes e módulos e acesse http://localhost:4000. Você 
 docker compose -f docker-compose-treino.yml up -d --build
 ```
 
-Volte ao navegador e veja o servidor iniciado "online", clique em "See Training" para acompanhar o treinamento e aguarde os clientes baixarem os datasets. Após os clientes se conectarem, o treinamento completará o número de rounds estipulados pelo servidor, passando por todos os estágios do Aprendizado Federado com o Flower até finalizar e atualizar os parâmetros de rounds completos e tempo médio de duração da rodada. Volte clicando em Dashboard no menu lateral para visualizar os novos dados.
+* Volte ao navegador e veja o servidor iniciado "online" após aguardar um tempo de inicialização, da ordem de alguns minutos. 
+* Clique em "See Training" para acompanhar o treinamento e aguarde os clientes baixarem os datasets. 
+* Após os clientes se conectarem, o treinamento completará o número de rounds estipulados pelo servidor, passando por todos os estágios do Aprendizado Federado com o Flower até finalizar e atualizar os parâmetros de rounds completos e tempo médio de duração da rodada.
+* Clicando em Dashboard no menu lateral, volte para visualizar os novos dados.
 
 4. Limpeza
 

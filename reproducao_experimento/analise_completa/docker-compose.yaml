@@ -1,0 +1,6 @@
+services:
+  analisador:
+    build: .
+    image: analisador-pcap
+    volumes:
+      - ./:/app

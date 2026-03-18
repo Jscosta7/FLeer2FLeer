@@ -21,11 +21,11 @@ Os experimentos e a ferramenta foram rodados em máquinas diferentes, justamente
 Recomenda-se a execução sob as seguintes condições:
 
 Para o Demo Visual:
-* **Sistema Operacional:** Ubuntu 20.04/22.04, Debian 12 ou Windows (via WSL2 + Docker Desktop).
+* **Sistema Operacional:** Ubuntu 20.04/22.04, Debian 12 .
 * **Hardware Mínimo:** 2 CPUs (2.0GHz) e 8GB de memória RAM.
   
 Para o experimento de tráfego:
-* **Sistema Operacional:** Ubuntu 20.04/22.04, Debian 12 ou Windows (via WSL2 + Docker Desktop).
+* **Sistema Operacional:** Ubuntu 20.04/22.04, Debian 12 .
 * **Hardware sugerido:** Intel i9-10900 CPUs, 32GB RAM, 20 threads.
 
 ---
@@ -37,6 +37,21 @@ A seguir, são apresentados os passos necessários para configurar as dependênc
 2. **Docker e Docker Compose (V2):** Essenciais para subir a infraestrutura.
 3. **Tcpdump e Tshark:** Necessários apenas para a etapa de Reprodução de Experimentos (captura e análise de pacotes).
 4. **Python 3.9+ e Pandas:** Necessários para rodar os scripts analíticos finais.
+
+### Github
+
+Instale o Git usando:
+```bash
+sudo apt-get update
+sudo apt-get install git-all
+```
+Crie uma conta no Github.
+
+Clone o repositório do projeto:
+```bash
+git clone [https://github.com/Jscosta7/FLeer2FLeer.git](https://github.com/Jscosta7/FLeer2FLeer.git)
+cd FLeer2FLeer
+```
 
 **Instalação rápida das ferramentas de rede (Linux/Ubuntu):**
 ```bash

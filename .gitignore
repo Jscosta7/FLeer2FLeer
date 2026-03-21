@@ -76,3 +76,5 @@ reproducao_experimentos/*.csv
 __pycache__/
 *.pyc
 .DS_Store
+
+*.pcap

@@ -8,6 +8,8 @@
     display: flex;
     flex-direction: row;
     height: 100vh;
+    width: 100%;
+    overflow: hidden;
     border-width: 0px;
     box-sizing: border-box;
 }
@@ -18,21 +20,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 360px; /* Largura fixa para o menu */
+    width: 20%; 
+    min-width: 260px; /* Trava de segurança: Nunca será menor que 260px em laptops pequenos */
+    max-width: 320px; /* Largura fixa para o menu */
     height: 100vh;
-    background-color: #121212; /* Um tom mais escuro que o conteúdo */
+    background-color: #1E293B; /* Um tom mais escuro que o conteúdo */
     padding-top: 2rem; /* Espaçamento interno */
     padding-bottom: 1rem;
-    border-right: 1px solid #2a2a2a; /* Linha sutil para separar */
+    border-right: 1px solid #334155; /* Linha sutil para separar */
     box-sizing: border-box;
     flex-shrink: 0; /* Impede que o menu encolha */
 }
 
 /* 2. Cabeçalho (Logo) */
+
+.menu-header, .menu-nav, .menu-footer {
+    width: 85%;
+}
+
 .menu-header {
     padding-bottom: 1rem;
     margin-bottom: 1rem;
-    border-bottom: 1px solid #2a2a2a;
+    border-bottom: 1px solid #334155;
 }
 
 .menu-logo {
@@ -40,7 +49,7 @@
     align-items: center;
     gap: 12px;
     text-decoration: none;
-    color: #E2E8F0;
+    color: #F8FAFC;
 }
 
 .menu-logo i {
@@ -71,7 +80,7 @@
     padding: 12px;
     border-radius: 6px;
     text-decoration: none;
-    color: #9d9d9d; /* Cor padrão para os links */
+    color: #F8FAFC; /* Cor padrão para os links */
     font-weight: 500;
     transition: all 0.2s ease-in-out;
 }
@@ -87,8 +96,8 @@
 
 /* Efeito ao passar o mouse em um link */
 .menu-nav a:hover {
-    background-color: #2a2a2a;
-    color: #FFFFFF;
+    background-color: #334155;
+    color: #F8FAFC;
     padding-left:2.5rem;
     padding-right:2.5rem;
 
@@ -107,7 +116,7 @@
 .menu-footer {
     margin-top: auto; /* A MÁGICA: Empurra o rodapé para o final do menu */
     padding-top: 1rem;
-    border-top: 1px solid #2a2a2a;
+    border-top: 1px solid #334155;
 }
 
 /* Links do rodapé (reutilizam o estilo dos links de navegação) */
@@ -118,12 +127,12 @@
     padding: 12px;
     border-radius: 6px;
     text-decoration: none;
-    color: #9d9d9d;
+    color: #F8FAFC;
     transition: background-color 0.2s;
 }
 
 .menu-footer a:hover {
-    background-color: #2a2a2a;
+    background-color: #334155;
 }
 
 .menu-footer a i {
@@ -139,7 +148,7 @@
     
     flex-grow: 1; /* A MÁGICA: Faz esta div crescer e ocupar todo o espaço restante */
     
-    background-color: #1C1C1C;
+    background-color: #F1F5F9;
     height: 100vh;
     overflow-y: auto; /* IMPORTANTE: Adiciona uma barra de rolagem AQUI se a tabela for muito grande */
     box-sizing: border-box;
@@ -148,7 +157,7 @@
 
 header {
   display: flex;               /* Ativa o Flexbox */
-  background-color: #121212;
+  background-color: #FFFFFF;
   border-width: 0px; 
   box-sizing: border-box;
   width: 100%;
@@ -171,7 +180,7 @@ header {
   width: 30%;
   padding-right: 90px;
   text-decoration: none;
-  color: #9d9d9d;
+  color: #1E293B;
   font-size: 18px;
 }
 
@@ -179,7 +188,7 @@ header {
     font-family: 'Inter', sans-serif;
     font-size: 1.25rem;
     font-weight: 600;
-    color: #E2E8F0;
+    color: #1E293B;
     text-decoration: none;
     transition: color 0.2s ease-in-out;
 }
@@ -203,7 +212,7 @@ a {
     height: 42px; /* Altura fixa para o container */
     border: 1px solid #4A5568; /* Borda sutil no container */
     border-radius: 6px;
-    background-color: #1C1C1C;
+    background-color: #F1F5F9;
     transition: all 0.2s ease-in-out; /* Para animar o efeito de foco */
 }
 
@@ -230,7 +239,7 @@ a {
 
 /* Botão de envio */
 .submit-button {
-    background-color: #63DBB8;
+    background-color: #1E293B;
     border: none;
     border-radius: 0 4px 4px 0; /* Arredonda só os cantos da direita */
     padding: 0 16px;
@@ -240,7 +249,7 @@ a {
 
 /* Ícone dentro do botão */
 .submit-button i {
-    color: #111214;
+    color: #63DBB8;
     font-size: 1.15rem;
 }
 /* SUBSTITUA SEU CSS ANTIGO POR ESTE BLOCO */
@@ -262,7 +271,7 @@ a {
     gap: 8px; /* Espaço entre o texto e o ícone de seta */
     font-weight: 600;
     background-color: transparent;
-    color: #E2E8F0;
+    color: #1E293B;
     padding: 8px 16px; /* Aumenta a área clicável, dando "corpo" ao botão */
     font-size: 1.1rem;
     font-family: 'Inter', sans-serif;
@@ -275,7 +284,7 @@ a {
 /* Efeito ao passar o mouse no botão */
 .dropbtn:hover {
     background-color: rgba(255, 255, 255, 0.1); /* Fundo sutil */
-    color: #FFFFFF; /* Texto mais claro */
+    color: #63DBB8; /* Texto mais claro */
 }
 
 /* Estilo para o ícone de seta dentro do botão */
@@ -297,9 +306,9 @@ a {
     position: absolute;
     right: 0; /* Alinha o menu à direita, bom para responsividade */
     margin-top: 8px; /* Pequeno espaço entre o botão e o menu */
-    background-color: #1C1C1C;
+    background-color: #F1F5F9;
     min-width: 180px;
-    border: 1px solid #2a2a2a; /* Borda sutil */
+    border: 1px solid #9d9d9d; /* Borda sutil */
     border-radius: 6px;
     box-shadow: 0px 8px 30px 0px rgba(0,0,0,0.3);
     z-index: 1;
@@ -308,7 +317,7 @@ a {
 
 /* Links dentro do menu */
 .dropdown-content a {
-    color: #9d9d9d;
+    color: #475569;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -329,21 +338,17 @@ a {
 table {
   width: 80%;
   margin-top: 50px;
-  border-width: 2px;
-  border-style: solid;
-  border-color: #63DBB8;
-  border-radius: 8px;
-  border-collapse: collapse;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  border-collapse: separate;
+  border-spacing: 0;
   text-align: center;
-  background-color: #1c1c1c;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   overflow: hidden;
 }
 thead {
   background-color: #63DBB8;
-  border-width: 2px;
-  border-style: solid;
-  border-color: #63DBB8;
-  border-radius: 4px;
   font-size: 16px;
   color: #111214;
 }
@@ -357,13 +362,13 @@ tbody {
 }
 
 td{
-  border-width: 2px;
-  border-style: solid;
-  border-color: #111214;
-  color: #9d9d9d;
+
+  color: #475569;
   padding: 8px;
   font-size: 15px;
   font-weight: 500;
+  border: none;
+  border-bottom: 1px solid #F1F5F9;
 }
 /* Ajuste na regra 'th' existente */
 th {
@@ -376,9 +381,8 @@ th {
     letter-spacing: 0.5px; /* Leve espaçamento entre as letras */
     cursor: pointer; /* Indica que o cabeçalho é clicável para ordenar */
     white-space: nowrap; /* Evita que o texto quebre em duas linhas */
-    border-style: solid; /* Mantido do seu código */
-    border-color: #111214; /* Mantido do seu código */
-    border-width: 2px; /* Mantido do seu código */
+    border: none;
+    border-bottom: 2px solid #4acda3;
 }
 
 /* Adicione estas novas regras ao seu CSS */
@@ -414,7 +418,7 @@ th i {
 
 .Client-archive a {
     text-decoration: None;
-    color: #9d9d9d;
+    color: #1E293B;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -512,7 +516,7 @@ th i {
 /* 3. Estilo para o botão "Ver Histórico" (INATIVO) */
 .server-training .btn-history {
     background-color: transparent;
-    color: #A0AEC0; /* Um cinza claro para o texto */
+    color: #475569; /* Um cinza claro para o texto */
     border-color: #4A5568; /* Uma borda sutil */
 }
 

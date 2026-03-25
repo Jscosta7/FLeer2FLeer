@@ -14,105 +14,133 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
-
-    
+    /* --- ESTRUTURA PRINCIPAL --- */
+    /* Layout fluido com rolagem nativa que NUNCA corta o conteúdo */
     .main-content {
-        display: flex;
-        justify-content: center; 
-        align-items:center;     
-        height: 100vh;
-        background-color: #f0f2f5;
-        padding: 20px; 
+        width: 80%; /* Ocupa o espaço exato ao lado do menu (20%) */
+        height: 100vh; /* Limita à altura do navegador... */
+        overflow-y: auto; /* ...e cria a barra de rolagem AQUI dentro */
+        background-color: #F1F5F9; /* Fundo gelo padronizado */
+        padding: 40px 2rem; /* Espaço generoso no topo e no fundo */
         box-sizing: border-box;
-        overflow: hidden; 
+        display: block; /* Removemos o Flexbox daqui para evitar o corte da tela */
     }
-
     
+    /* O container do formulário (sem cara de "card preso", centralizado livremente) */
     .server-card-large {
-        background-color: #ffffff;
-        border-radius: 20px; 
-        box-shadow: 0 20px 50px -10px rgba(0,0,0,0.15); 
-        width: 70vw; 
-        height: 85vh; 
-        max-width: 1400px;
-        min-width: 600px; 
-        padding: 50px; 
+        width: 100%;
+        max-width: 800px; /* Limita a largura para a leitura do formulário ficar agradável */
+        margin: 0 auto; /* A MÁGICA: Centraliza horizontalmente de forma segura */
         display: flex;
         flex-direction: column;
-        overflow-y: auto; 
     }
-    .form-group { margin-bottom: 30px; }
+
+    /* --- FORMULÁRIO E TIPOGRAFIA --- */
+    .form-group { margin-bottom: 25px; }
     
     .form-label { 
         display: block;
-        font-weight: 700; 
-        color: #1a2c4e; 
-        font-size: 1.1rem; 
-        margin-bottom: 12px;
+        font-weight: 600; 
+        color: #1E293B; /* Texto Ardósia Escuro */
+        font-size: 1rem; 
+        margin-bottom: 10px;
     }
     
     .form-input { 
         width: 100%; 
-        padding: 15px; 
-        font-size: 1.1rem;
-        border: 2px solid #e2e8f0; 
-        border-radius: 10px; 
+        padding: 16px; 
+        font-size: 1rem;
+        border: 1px solid #CBD5E1; /* Borda fina e elegante */
+        border-radius: 8px; 
         font-family: 'Inter', sans-serif; 
         box-sizing: border-box; 
+        background-color: #FFFFFF; /* Inputs brancos para destacar no fundo cinza */
+        color: #0F172A;
+        transition: all 0.2s ease;
     }
     
-    .form-input:focus, select.form-input:focus { outline: none; border-color: #63DBB8; }
+    .form-input:focus, select.form-input:focus { 
+        outline: none; 
+        border-color: #63DBB8; 
+        box-shadow: 0 0 0 4px rgba(99, 219, 184, 0.15); /* Efeito de foco (glow) */
+    }
 
-    .form-row-dual { display: flex; gap: 40px; } 
+    .form-row-dual { 
+        display: flex; 
+        gap: 25px; 
+    }
 
+    /* Responsividade: Empilha os campos "Category" e "Area" em laptops menores */
+    @media (max-width: 900px) {
+        .form-row-dual {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+
+    /* --- ÁREA DE UPLOAD (Exclusiva desta tela) --- */
     .upload-area {
-        border: 3px dashed #cbd5e0;
-        background-color: #f8fafc;
+        border: 2px dashed #CBD5E1; /* Borda tracejada sutil */
+        background-color: #FFFFFF; /* Fundo branco para sobressair */
         padding: 50px; 
         text-align: center;
-        border-radius: 16px;
+        border-radius: 12px;
         cursor: pointer;
         transition: all 0.3s ease;
+        margin-bottom: 20px;
     }
-    .upload-area:hover { border-color: #63DBB8; background-color: rgba(99, 219, 184, 0.1); }
+    
+    .upload-area:hover { 
+        border-color: #63DBB8; 
+        background-color: rgba(99, 219, 184, 0.05); /* Fica levemente verde ao passar o mouse */
+    }
 
+    /* --- BOTÕES --- */
     .form-actions { 
         display: flex; 
         justify-content: flex-end; 
         align-items: center; 
-        gap: 25px; 
-        margin-top: auto;
-        padding-top: 40px; 
-        border-top: 2px solid #f1f5f9; 
+        gap: 20px; 
+        margin-top: 20px;
+        padding-top: 30px; 
+        border-top: 1px solid #E2E8F0; /* Linha divisória clara */
     }
     
     .btn-primary { 
         background-color: #63DBB8; 
-        color: #111214; 
-        padding: 18px 40px;
+        color: #042F2E; /* Texto com alto contraste */
+        padding: 14px 30px;
         border: none; 
-        border-radius: 10px; 
-        font-size: 1.2rem; 
-        font-weight: 700; 
+        border-radius: 8px; 
+        font-size: 1.1rem; 
+        font-weight: 600; 
         cursor: pointer; 
-        transition: transform 0.1s ease; 
-        display: flex; align-items: center; gap: 12px; 
+        transition: transform 0.1s ease, background-color 0.2s; 
+        display: flex; align-items: center; gap: 10px; 
     }
-    .btn-primary:hover { transform: scale(1.02); background-color: #4acda3; }
+    .btn-primary:hover { 
+        transform: translateY(-2px); 
+        background-color: #4acda3; 
+        box-shadow: 0 4px 12px rgba(99, 219, 184, 0.2);
+    }
     
     .btn-secondary { 
-        font-family: Helvetica;
+        font-family: 'Helvetica', sans-serif;
         background-color: transparent; 
-        color: #64748b; 
-        padding: 15px 30px; 
-        border: 2px solid transparent; 
-        border-radius: 10px; 
+        color: #64748B; 
+        padding: 12px 24px; 
+        border: 1px solid transparent; 
+        border-radius: 8px; 
         text-decoration: none; 
         font-weight: 600; 
-        font-size: 1.1rem; 
+        font-size: 1rem; 
+        transition: all 0.2s;
     }
-    .btn-secondary:hover { color: #334155; background-color: #e2e8f0; }
-    </style>
+    .btn-secondary:hover { 
+        color: #1E293B; 
+        background-color: #E2E8F0; 
+    }
+  </style>
 </head>
 
 <body class="page-training">

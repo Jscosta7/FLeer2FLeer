@@ -111,6 +111,8 @@ Exemplo dos logs no início do comando:
 
 Após o script exibir a mensagem de sucesso, os 25 arquivos `.pcap` estarão na mesma pasta (`reproducao_experimento`). Para gerar os resultados, utilize os scripts em Python fornecidos:
 
+> Garanta que você está dentro da pasta `reproducao_experimentos` no terminal antes de executar esses próximos comandos
+
 Para ver a média de tráfego por cenário (FL x Indexador):
 ```bash
 cd analise_completa

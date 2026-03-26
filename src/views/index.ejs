@@ -125,7 +125,7 @@ if(results){
       </td>
       <td id="downloads-<%= item._id %>"><%= item.Downloads %></td>
       <td id="completed-<%= item._id %>"><%= item.Completed_Rounds %></td>
-      <td id="avg-<%= item._id %>"><%= item.Average_round_duration? Math.round(item.Average_round_duration) : '-' %></td>
+      <td id="avg-<%= item._id %>"><%= item.Average_round_duration? Math.round(item.Average_round_duration) + "s" : '-' %></td>
       <% let ts = item.Last_Update ? item.Last_Update.toISOString() : '' %>
       <td id="last-update-<%= item._id %>" data-timestamp="<%= ts %>">
       <%= ts || '-' %>
@@ -185,7 +185,7 @@ if(results){
         </td>
         <td id="downloads-<%= item._id %>"><%= item.Downloads %></td>
         <td id="completed-<%= item._id %>"><%= item.Completed_Rounds %></td>
-        <td id="avg-<%= item._id %>"><%= item.Average_round_duration? Math.round(item.Average_round_duration) : '-' %></td>
+        <td id="avg-<%= item._id %>"><%= item.Average_round_duration? Math.round(item.Average_round_duration) + "s" : '-' %></td>
         <% let ts = item.Last_Update ? item.Last_Update.toISOString() : '' %>
         <td id="last-update-<%= item._id %>" data-timestamp="<%= ts %>">
           <%= ts || '-' %>

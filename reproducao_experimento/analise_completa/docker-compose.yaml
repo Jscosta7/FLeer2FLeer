@@ -1,6 +1,12 @@
 services:
   analisador:
     build: .
+
     image: analisador-pcap
+
     volumes:
-      - ./:/app
+      - ..:/app
+
+    working_dir: /app
+
+    command: python ./analise_completa/analise_completa.py

@@ -10,8 +10,11 @@ for c in {1..5}; do
 
         sudo docker compose -f docker-compose_c${c}.yml up -d
 
-        # Dá 3 segundos para o Linux ligar o cabo virtual
-        sleep 3 
+        # Espera o container subir
+        until [ $(docker network ls | grep -c "reproducao_experimento_fl_network") -gt 0 ]; do
+        echo "Aguardando rede ficar pronta..."
+        sleep 1
+        done
 
 
         # Pega o ID do mongo

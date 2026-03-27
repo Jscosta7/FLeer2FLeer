@@ -82,7 +82,7 @@ sudo docker compose -f docker-compose-treino.yml up -d --build
 
 ```bash
 sudo docker compose -f docker-compose-treino.yml down
-sudo sudo docker compose -f docker-compose-treino.yml up -d --build
+sudo docker compose -f docker-compose-treino.yml up -d --build
 ```
 
 5. Após terminar a visualização da demo, faça uma limpeza para não causar conflito com a etapa de experimentos, limpando a infraestrutura destruindo os volumes:

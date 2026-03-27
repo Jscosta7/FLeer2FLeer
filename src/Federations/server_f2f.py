@@ -205,6 +205,8 @@ if __name__ == "__main__":
         
         emit_Training_state()
         print("Estado de treinamento enviado após treinamento finalizar (Offline)")
+
+        time.sleep(2)
         
         if sio.connected:
             sio.disconnect()

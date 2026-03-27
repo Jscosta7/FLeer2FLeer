@@ -78,7 +78,14 @@ sudo docker compose -f docker-compose-treino.yml up -d --build
 * Clicando em `Dashboard` no menu lateral, volte para visualizar os campos `Round Duration` (duração média da rodada, em segundos) e `Last  Update` (momento em que treinamento finalizou, com tempo desde a última atualização do servidor).
 ![alt text](imagens/5-novas-infos.png)
 
-4. Faça uma limpeza para não causar conflito com a etapa de experimentos, limpando a infraestrutura destruindo os volumes:
+4. É possível rodar o treinamento novamente e acompanhar a nova execução repetindo o passo a passo descrito(os dados das execuções anteriores são mantidos e atualizados).
+
+```bash
+sudo docker compose -f docker-compose-treino.yml down
+sudo sudo docker compose -f docker-compose-treino.yml up -d --build
+```
+
+5. Após terminar a visualização da demo, faça uma limpeza para não causar conflito com a etapa de experimentos, limpando a infraestrutura destruindo os volumes:
 
 ```bash
 sudo docker compose -f docker-compose-treino.yml down
@@ -87,29 +94,36 @@ cd ..
 ```
 
 ## Reprodução do Experimento do artigo
-Esta etapa recria os 5 cenários descritos no artigo. O script inicia os cenários, captura o tráfego gerado pelas portas do Flower (8080) e do Indexador (3000), gera os arquivos `.pcap` e destrói o ambiente para o próximo ciclo.
+Esta etapa possibilita recriar os 5 cenários descritos no artigo. O script inicia os cenários, captura o tráfego gerado pelas portas do Flower (8080) e do Indexador (3000), gera os arquivos `.pcap` e destrói o ambiente para o próximo ciclo.
 
 1. Acesse o diretório de experimentos:
 
 ```bash
 cd reproducao_experimentos
 ```
-2. Dê permissão e execute o script:
-   
-O script executará 5 rodadas para cada um dos 5 cenários (25 execuções no total). Ele pode solicitar a senha sudo para acionar o tcpdump e o Docker.
 
+2. Dê permissão de execução ao script:
+   
 ```bash
 chmod +x rodar_experimentos.sh
-./rodar_experimentos.sh
 ```
-Este processo leva tempo, pois treina modelos de Machine Learning reais em contêineres e aguarda o tempo de sincronização da rede.
+
+3. Execute os experimentos:
+
+Por ser um processo demorado, a fim de facilitar a reprodução o script possibilita ajustar o número de cenários (1 até 5) e o número de rodadas (1 até 5). O recomendável para uma validação mais rápida são 2 cenários e 2 rounds. Caso deseje rodar a bateria completa do artigo, basta executar sudo ./rodar_experimentos.sh sem parâmetros.
+
+```bash
+sudo ./rodar_experimentos.sh rounds=2 cenarios=2
+```
+
+Este processo leva tempo, pois treina modelos de Machine Learning reais em contêineres e aguarda o tempo de sincronização da rede. O comando exige privilégios de administrador (sudo) para habilitar o tcpdump e controlar o Docker.
 
 Exemplo dos logs no início do comando:
 ![alt text](imagens/6-logs-inicio.png)
 
-3. Análise dos Resultados:
+4. Análise dos Resultados:
 
-Após o script exibir a mensagem de sucesso, os 25 arquivos `.pcap` estarão na mesma pasta (`reproducao_experimento`). Para gerar os resultados, utilize os scripts em Python fornecidos:
+Após o script exibir a mensagem de sucesso, os arquivos `.pcap` estarão na mesma pasta (`reproducao_experimento`). Para gerar os resultados, utilize os scripts em Python fornecidos:
 
 > Garanta que você está dentro da pasta `reproducao_experimentos` no terminal antes de executar esses próximos comandos
 
@@ -117,6 +131,16 @@ Para ver a média de tráfego por cenário (FL x Indexador):
 ```bash
 cd analise_completa
 sudo docker compose up -d
+```
+O script gera um `.txt`, Volte para o diretório anterior e exiba a análise no seu terminal:
+
+```bash
+cd ..
+# (Opcional) Lista os arquivos .txt para confirmar o nome
+ls *.txt
+
+# Exibe o relatório de análise diretamente no terminal
+cat analise_completa.txt
 ```
 
 Limpeza 1: 
@@ -131,6 +155,17 @@ Para ver o tráfego isolado por IP de cada servidor:
 ```bash
 cd analise_por_servidor
 sudo docker compose up -d
+```
+
+Exiba a análise por IP no seu terminal:
+
+```bash
+cd ..
+# (Opcional) Lista os arquivos .txt para confirmar o nome
+ls *.txt
+
+# Exibe o relatório de análise diretamente no terminal
+cat analise_completa.txt
 ```
 
 Limpeza 2: 

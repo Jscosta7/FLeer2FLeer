@@ -110,7 +110,9 @@ chmod +x rodar_experimentos.sh
 
 3. Execute os experimentos:
 
-Por ser um processo demorado, a fim de facilitar a reprodução, o script possibilita ajustar o número de cenários (1 até 5) e o número de rodadas (1 até 5). O recomendável para uma validação mais rápida são 2 cenários e 2 rounds. Caso deseje rodar a bateria completa do artigo, basta executar sudo ./rodar_experimentos.sh sem parâmetros.
+Por ser um processo demorado, a fim de facilitar a reprodução, o script possibilita ajustar o número de cenários (1 até 5) e o número de rodadas (1 até 5). O recomendável para uma validação mais rápida são 2 cenários e 2 rounds. 
+
+>Caso deseje rodar a bateria completa do artigo, basta executar sudo ./rodar_experimentos.sh sem parâmetros.
 
 ```bash
 sudo ./rodar_experimentos.sh rounds=2 cenarios=2

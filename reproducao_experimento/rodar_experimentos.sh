@@ -1,11 +1,38 @@
 #!/bin/bash
 
-# Loop para os 5 Cenários (c1 ao c5)
-for c in {1..5}; do
+# Valores padrão (caso o avaliador rode sem argumentos, mantém os 5 originais)
+TOTAL_CENARIOS=5
+TOTAL_ROUNDS=5
+
+# Processa os argumentos passados via linha de comando
+for arg in "$@"; do
+    case $arg in
+        rounds=*)
+        TOTAL_ROUNDS="${arg#*=}"
+        ;;
+        cenario=*|cenarios=*)
+        TOTAL_CENARIOS="${arg#*=}"
+        ;;
+        *)
+        echo "Aviso: Argumento ignorado: $arg"
+        ;;
+    esac
+done
+
+echo "========================================"
+echo "Iniciando bateria de experimentos..."
+echo "Total de Cenários configurados: $TOTAL_CENARIOS"
+echo "Rodadas (Rounds) por Cenário: $TOTAL_ROUNDS"
+echo "Total de execuções: $((TOTAL_CENARIOS * TOTAL_ROUNDS))"
+echo "========================================"
+echo ""
+
+# Loop para os Cenários (do 1 até o TOTAL definido)
+for (( c=1; c<=TOTAL_CENARIOS; c++ )); do
 
     # Loop para as 5 Rodadas de medição
-    for r in {1..5}; do
-        echo "Iniciando Cenário $c - Rodada $r de 5..."
+    for (( r=1; r<=TOTAL_ROUNDS; r++ )); do
+        echo "Iniciando Cenário $c - Rodada $r de $TOTAL_ROUNDS..."
 
 
         sudo docker compose -f docker-compose_c${c}.yml up -d
@@ -49,4 +76,4 @@ for c in {1..5}; do
     done
 done
 
-echo "TODOS OS 25 EXPERIMENTOS FINALIZADOS"
+echo "TODOS OS $((TOTAL_CENARIOS * TOTAL_ROUNDS)) EXPERIMENTOS FINALIZADOS"

@@ -36,7 +36,7 @@ def analisar_experimentos_detalhado():
                 csv_file = f"temp_c{c}_exec{r}.csv"
 
                 if not os.path.exists(pcap_file):
-                    f_out.write(f"Arquivo {pcap_file} não encontrado. Pulando...\n")
+                    #f_out.write(f"Arquivo {pcap_file} não encontrado. Pulando...\n")
                     continue
 
                 #  Extraindo os IPs (ip.src e ip.dst) ---

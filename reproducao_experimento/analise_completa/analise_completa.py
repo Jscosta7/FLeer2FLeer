@@ -37,7 +37,7 @@ def analisar_experimentos():
                 csv_file = f"temp_c{c}_exec{r}.csv"
 
                 if not os.path.exists(pcap_file):
-                    f_out.write(f"Arquivo {pcap_file} não encontrado. Pulando...\n")
+                    #f_out.write(f"Arquivo {pcap_file} não encontrado. Pulando...\n")
                     continue
 
                 #Python pede pro tshark extrair apenas o tamanho dos pacotes

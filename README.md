@@ -106,7 +106,7 @@ Esta etapa possibilita recriar os 5 cenários descritos no artigo. O script inic
 1. Acesse o diretório de experimentos:
 
 ```bash
-cd reproducao_experimentos
+cd reproducao_experimento
 ```
 
 2. Dê permissão de execução ao script:

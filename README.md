@@ -47,6 +47,11 @@ sudo apt update
 sudo apt install docker-ce docker-compose-plugin tcpdump -y
 ```
 
+## Preocupações com segurança
+
+A execução dos experimentos e contêineres **não apresenta riscos de segurança conhecidos**. O uso do sudo é exigido pelo utilitário tcpdump para permitir a "escuta" das interfaces de ponte de rede (br-) geradas dinamicamente pelo Docker durante os testes. Os comandos Docker são executados por padrão com sudo, mas é possível que o usuário possua uma instalação do Docker configurada para execução de comandos sem sudo, sem apresentar riscos para a segurança
+
+
 ## Visualização da Ferramenta (Demo Visual)
 
 1. Acesse o diretório onde esta contido os arquivos Docker responsáveis pela demonstração:
@@ -93,6 +98,8 @@ sudo docker compose down -v
 cd ..
 ```
 
+> A aba do navegador em http://localhost:4000 pode ser fechada, pois ela não será mais necessária no resto do passo-a-passo.
+
 ## Reprodução do Experimento do artigo
 Esta etapa possibilita recriar os 5 cenários descritos no artigo. O script inicia os cenários, captura o tráfego gerado pelas portas do Flower (8080) e do Indexador (3000), gera os arquivos `.pcap` e destrói o ambiente para o próximo ciclo.
 
@@ -112,7 +119,7 @@ chmod +x rodar_experimentos.sh
 
 Por ser um processo demorado, a fim de facilitar a reprodução, o script possibilita ajustar o número de cenários (1 até 5) e o número de rodadas (1 até 5). O recomendável para uma validação mais rápida são 2 cenários e 2 rounds. 
 
->Caso deseje rodar a bateria completa do artigo, basta executar sudo ./rodar_experimentos.sh sem parâmetros.
+>Caso deseje rodar a bateria completa do artigo, basta executar sudo ./rodar_experimentos.sh sem parâmetros. Entretanto, este comando pode demorar um tempo considerável, mesmo no ambiente sugerido
 
 ```bash
 sudo ./rodar_experimentos.sh rounds=2 cenarios=2
@@ -137,12 +144,55 @@ sudo docker compose up -d
 O script gera um `.txt`, Volte para o diretório anterior e exiba a análise no seu terminal:
 
 ```bash
-cd ..
-# (Opcional) Lista os arquivos .txt para confirmar o nome
-ls *.txt
+cat ../analise_completa.txt
+```
 
-# Exibe o relatório de análise diretamente no terminal
-cat analise_completa.txt
+Exemplo de resultado esperado:
+
+```bash
+Iniciando extração e análise dos 25 arquivos .pcap...
+
+============================================================
+ CENÁRIO 1
+============================================================
+Rodada 1: FL = 154.3585 MB | Indexador = 0.030462 MB
+Rodada 2: FL = 162.4127 MB | Indexador = 0.033282 MB
+
+ MÉDIA DO CENÁRIO 1 -> FL: 158.3856 MB | Indexador: 0.031872 MB
+
+============================================================
+ CENÁRIO 2
+============================================================
+Rodada 1: FL = 312.7265 MB | Indexador = 0.099224 MB
+Rodada 2: FL = 321.5669 MB | Indexador = 0.108914 MB
+
+ MÉDIA DO CENÁRIO 2 -> FL: 317.1467 MB | Indexador: 0.104069 MB
+
+============================================================
+ CENÁRIO 3
+============================================================
+
+ CENÁRIO 3 não gerou médias (Nenhuma rodada válida encontrada).
+
+============================================================
+ CENÁRIO 4
+============================================================
+
+ CENÁRIO 4 não gerou médias (Nenhuma rodada válida encontrada).
+
+============================================================
+ CENÁRIO 5
+============================================================
+
+ CENÁRIO 5 não gerou médias (Nenhuma rodada válida encontrada).
+
+
+=================================================================
+CENÁRIO    | MÉDIA FL (MB)      | MÉDIA INDEXADOR (MB)
+-----------------------------------------------------------------
+Cenário 1  | 158.3856           | 0.031872            
+Cenário 2  | 317.1467           | 0.104069            
+=================================================================
 ```
 
 Limpeza 1: 
@@ -162,12 +212,52 @@ sudo docker compose up -d
 Exiba a análise por IP no seu terminal:
 
 ```bash
-cd ..
-# (Opcional) Lista os arquivos .txt para confirmar o nome
-ls *.txt
+cat ../analise_por_servidor.txt
+```
 
-# Exibe o relatório de análise diretamente no terminal
-cat analise_completa.txt
+Resultado esperado:
+
+```bash
+Iniciando extração e análise detalhada por IP dos 25 arquivos .pcap...
+
+
+============================================================
+ ANÁLISE DO CENÁRIO 1
+============================================================
+
+--- Rodada 1 ---
+Servidor (IP 172.19.0.4): 154.3585 MB
+TOTAL DA RODADA: 154.3585 MB
+
+--- Rodada 2 ---
+Servidor (IP 172.19.0.4): 162.4127 MB
+TOTAL DA RODADA: 162.4127 MB
+
+============================================================
+ ANÁLISE DO CENÁRIO 2
+============================================================
+
+--- Rodada 1 ---
+Servidor (IP 172.19.0.4): 152.3998 MB
+Servidor (IP 172.19.0.5): 160.3267 MB
+TOTAL DA RODADA: 312.7265 MB
+
+--- Rodada 2 ---
+Servidor (IP 172.19.0.4): 157.5510 MB
+Servidor (IP 172.19.0.5): 164.0159 MB
+TOTAL DA RODADA: 321.5669 MB
+
+============================================================
+ ANÁLISE DO CENÁRIO 3
+============================================================
+
+============================================================
+ ANÁLISE DO CENÁRIO 4
+============================================================
+
+============================================================
+ ANÁLISE DO CENÁRIO 5
+============================================================
 ```
 
 Limpeza 2: 
@@ -177,6 +267,9 @@ sudo docker compose down
 cd ..
 ```
 
-## Preocupações com segurança
+Limpeza final:
 
-A execução dos experimentos e contêineres não apresenta riscos de segurança conhecidos para os revisores. O uso do sudo é exigido estritamente pelo utilitário tcpdump para permitir a "escuta" das interfaces de ponte de rede (br-) geradas dinamicamente pelo Docker durante os testes.
+``bash
+sudo rm *.pcap
+sudo rm *.txt
+``

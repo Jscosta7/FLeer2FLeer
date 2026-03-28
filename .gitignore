@@ -78,3 +78,5 @@ __pycache__/
 .DS_Store
 
 *.pcap
+reproducao_experimentos/analise_completa.txt
+reproducao_experimentos/analise_por_servidor.txt

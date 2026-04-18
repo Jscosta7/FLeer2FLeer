@@ -1,11 +1,31 @@
 # FLeer2FLeer: Uma Ferramenta Web Baseada em Arquitetura Par-a-Par para Orquestração do Aprendizado Federado
 
+**Resumo do Artigo:**
+
+_Este trabalho apresenta o FLeer2FLeer (F2F), uma ferramenta web para orquestração de aprendizado federado baseada em uma arquitetura P2P. O F2F introduz um Indexador responsável pela descoberta, anúncio e ingresso de clientes nas múltiplas federações, sem interferir no processo de treinamento. Implementado sobre o framework Flower, o sistema utiliza estratégias baseadas em hooks para coleta não intrusiva de métricas. A ferramenta oferece monitoramento em tempo real de múltiplos treinamentos, expansão da rede pela adição de servidores e reporte de falhas. Os resultados experimentais demonstram que o Indexador impõe sobrecarga mínima à rede, enquanto a carga de treinamento é distribuída entre diferentes servidores promovendo maior escalabilidade._
+
+---
 O objetivo deste artefato é disponibilizar a ferramenta **FLeer2FLeer**, permitindo tanto visualizar o uso da ferramenta e suas principais funcionalidades, quanto reproduzir o experimento de tráfego de rede relatado no artigo.
 
 Para garantir uma melhor organização e entendimento da ferramenta, o projeto foi dividido em tres pastas:
 1. **Demo Visual (`/demo_visual`)**: Responsável por possibilitar a visualização da interface da ferramenta e suas funcionalidades.
 2. **Reprodução de Experimentos (`/reproducao_experimentos`)**: Responsável por reproduzir fielmente o experimento citado, extraindo as métricas de tráfego (.pcap) de múltiplos cenários e analisando com o script pyhton.
 3. **A Ferramenta (`/src`)** : Onde estão localizados todos os arquivos que fazem parte do F2F.
+---
+
+## Estrutura do README.md
+
+Este README.md está organizado nas seguintes seções:
+
+* **Selos Considerados:** Apresenta os selos de qualidade de artefatos científicos reivindicados para este trabalho.
+* **Informações Básicas e Requisitos:** Define as especificações de hardware (mínimas e sugeridas) e de sistema operacional necessárias para rodar o projeto.
+* **Dependências:** Lista as ferramentas de software exigidas (como Docker e tcpdump) e fornece os comandos rápidos de instalação.
+* **Preocupações com Segurança:** Esclarece a necessidade e o impacto do uso de privilégios de administrador (`sudo`) durante a captura do tráfego de rede.
+* **Visualização da Ferramenta (Demo Visual):** Fornece um passo a passo rápido para inicializar a aplicação, rodar uma demonstração e validar se a infraestrutura está funcional.
+* **Reprodução do Experimento do Artigo:** Detalha o processo para recriar os cenários do artigo.
+* **Análise dos Resultados:** Apresenta o passo a passo e a validação das reivindicações originais do artigo.
+* **LICENSE:** Apresenta a licença de código aberto do projeto.
+
 ---
 
 ## Selos Considerados
@@ -103,6 +123,10 @@ cd ..
 ## Reprodução do Experimento do artigo
 Esta etapa possibilita recriar os 5 cenários descritos no artigo. O script inicia os cenários, captura o tráfego gerado pelas portas do Flower (8080) e do Indexador (3000), gera os arquivos `.pcap` e destrói o ambiente para o próximo ciclo.
 
+### Passo a Passo Geral da Execução
+
+Antes de validar as reivindicações, é necessário gerar os dados brutos executando os experimentos:
+
 1. Acesse o diretório de experimentos:
 
 ```bash
@@ -130,11 +154,16 @@ Este processo leva tempo, pois treina modelos de Machine Learning reais em cont�
 Exemplo dos logs no início do comando:
 ![alt text](imagens/6-logs-inicio.png)
 
-4. Análise dos Resultados:
+---
+## Análise dos Resultados
 
 Após o script exibir a mensagem de sucesso, os arquivos `.pcap` estarão na mesma pasta (`reproducao_experimento`). Para gerar os resultados, utilize os scripts em Python fornecidos:
 
 > Garanta que você está dentro da pasta `reproducao_experimentos` no terminal antes de executar esses próximos comandos
+
+### Reivindicação #1: O Indexador impõe sobrecarga mínima à rede
+
+Para comprovar que a introdução do Indexador não gera tráfego excessivo que comprometa o desempenho da federação, executaremos o script de análise completa.
 
 Para ver a média de tráfego por cenário (FL x Indexador):
 ```bash
@@ -147,7 +176,14 @@ O script gera um `.txt`, Volte para o diretório anterior e exiba a análise no 
 cat ../analise_completa.txt
 ```
 
-Exemplo de resultado esperado:
+**Recursos e Tempo Esperado:**
+
+* **Recursos:** Baixo consumo de CPU/RAM (apenas processamento de arquivos texto).
+* **Tempo esperado:** Menos de 1 minuto para a execução do script Python.
+
+**Exemplo de resultado esperado:**
+
+O terminal apresentará uma tabela de médias. É possível observar que a coluna MÉDIA INDEXADOR (MB) (ex: ~0.03 MB) apresenta valores em ordens de grandeza imensamente inferiores à coluna MÉDIA FL (MB) (ex: ~158 MB), comprovando a sobrecarga mínima.
 
 ```bash
 Iniciando extração e análise dos 25 arquivos .pcap...
@@ -202,6 +238,10 @@ sudo docker compose down
 cd ..
 ```
 
+### Reivindicação #2: A carga de treinamento é constante entre os servidores
+
+Para validar que o sistema escala distribuindo a carga do Aprendizado Federado entre diferentes servidores, analisaremos o tráfego isolado por IP.
+
 Para ver o tráfego isolado por IP de cada servidor:
 
 ```bash
@@ -215,7 +255,15 @@ Exiba a análise por IP no seu terminal:
 cat ../analise_por_servidor.txt
 ```
 
-Resultado esperado:
+**Recursos e Tempo Esperado:**
+
+* **Recursos:** Baixo consumo de CPU/RAM.
+* **Tempo esperado:** Menos de 1 minuto para a execução do script.
+
+
+**Exemplo de resultado esperado:**
+
+A saída demonstrará o tráfego dividido por IP em cenários com múltiplos servidores. No Cenário 2, por exemplo, o avaliador verá que o total da rodada (~312 MB) não está concentrado em uma única máquina, mas distribuído entre as instâncias (ex: 172.19.0.4 recebendo ~152 MB e 172.19.0.5 recebendo ~160 MB), confirmando a distribuição de carga reivindicada.
 
 ```bash
 Iniciando extração e análise detalhada por IP dos 25 arquivos .pcap...
@@ -269,7 +317,7 @@ cd ..
 
 Limpeza final:
 
-``bash
+```bash
 sudo rm *.pcap
 sudo rm *.txt
-``
+```

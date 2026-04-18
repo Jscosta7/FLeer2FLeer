@@ -321,3 +321,7 @@ Limpeza final:
 sudo rm *.pcap
 sudo rm *.txt
 ```
+
+## LICENSE
+
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.

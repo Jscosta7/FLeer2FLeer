@@ -1,6 +1,6 @@
 services:
   mongodb:
-    image: mongo:latest
+    image: mongo:7.0
     ports:
       - "27017:27017"
     volumes:
@@ -59,7 +59,7 @@ services:
     build: .
     volumes:
       - ../src:/app
-    command: python -u uploads/Client_arg.py --server_address "server1:8080"
+    command: sh -c "sleep 15 && python -u uploads/Client_arg.py --server_address 'server1:8080'"
     depends_on:
       - server1
     networks:
@@ -69,7 +69,9 @@ services:
     build: .
     volumes:
       - ../src:/app
-    command: python -u uploads/Client_arg.py --server_address "server1:8080"
+    command: sh -c "sleep 15 && python -u uploads/Client_arg.py --server_address 'server1:8080'"
+    environment:
+      - FL_SEED=${FL_SEED:-42}    
     depends_on:
       - server1
     networks:
@@ -79,7 +81,9 @@ services:
     build: .
     volumes:
       - ../src:/app
-    command: python -u uploads/Client_arg.py --server_address "server2:8080"
+    command: sh -c "sleep 15 && python -u uploads/Client_arg.py --server_address 'server2:8080'"
+    environment:
+      - FL_SEED=${FL_SEED:-42}
     depends_on:
       - server2
     networks:
@@ -89,7 +93,9 @@ services:
     build: .
     volumes:
       - ../src:/app
-    command: python -u uploads/Client_arg.py --server_address "server2:8080"
+    command: sh -c "sleep 15 && python -u uploads/Client_arg.py --server_address 'server2:8080'"
+    environment:
+      - FL_SEED=${FL_SEED:-42}
     depends_on:
       - server2
     networks:
@@ -99,7 +105,9 @@ services:
     build: .
     volumes:
       - ../src:/app
-    command: python -u uploads/Client_arg.py --server_address "server3:8080"
+    command: sh -c "sleep 15 && python -u uploads/Client_arg.py --server_address 'server3:8080'"
+    environment:
+      - FL_SEED=${FL_SEED:-42}
     depends_on:
       - server3
     networks:
@@ -109,7 +117,9 @@ services:
     build: .
     volumes:
       - ../src:/app
-    command: python -u uploads/Client_arg.py --server_address "server3:8080"
+    command: sh -c "sleep 15 && python -u uploads/Client_arg.py --server_address 'server3:8080'"
+    environment:
+      - FL_SEED=${FL_SEED:-42}
     depends_on:
       - server3
     networks:

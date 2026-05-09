@@ -187,7 +187,7 @@ cd ..
 Esta etapa possibilita recriar os 5 cenários descritos no artigo. O script inicia os cenários, captura o tráfego gerado pelas portas do Flower (8080) e do Indexador (3000), gera os arquivos `.pcap` e destrói o ambiente para o próximo ciclo. Para facilitar a compreensão de cada etapa do experimento, abaixo está uma descrição dos cenários:
 
 | Cenário | Qtd. Servidores | Qtd. Clientes 
-| :--- | :---: | :---: | :--- |
+| :--- | :---: | :---: |
 | **Cenário 1 (c1)** | 1 | 2 | 
 | **Cenário 2 (c2)** | 2 | 4 | 
 | **Cenário 3 (c3)** | 3 | 6 | 

@@ -37,7 +37,7 @@ router.get('/download/:id/:filename', async (req, res) => {
             // Monta o payload manualmente no mesmo padrão do formatPayload
             const payload = {
                 id: updatedServer._id,
-                Sever_status: updatedServer.Sever_status,
+                Server_status: updatedServer.Server_status,
                 Last_Update: updatedServer.Last_Update,
                 Completed_Rounds: updatedServer.Completed_Rounds,
                 Downloads: updatedServer.Downloads, 

@@ -19,7 +19,7 @@ const TrainingParamsSchema = new mongoose.Schema({
 }, { _id: false });
 
 const ServerSchema = new mongoose.Schema({
-  Sever_status: { 
+  Server_status: { 
     type: String, 
     required: true, 
     default: 'offline',
@@ -45,7 +45,7 @@ const ServerSchema = new mongoose.Schema({
 // --- LÓGICA DE NEGÓCIO ---
 ServerSchema.statics.checkInactivity = async function(timeoutSeconds = 300) {
     const now = new Date();
-    const onlineServers = await this.find({ Sever_status: 'online' });
+    const onlineServers = await this.find({ Server_status: 'online' });
     const offlineServers = [];
 
     for (const server of onlineServers) {
@@ -60,7 +60,7 @@ ServerSchema.statics.checkInactivity = async function(timeoutSeconds = 300) {
         }
 
         if (diffSeconds > threshold) {
-            server.Sever_status = 'offline';
+            server.Server_status = 'offline';
             await server.save();
             offlineServers.push(server);
         }

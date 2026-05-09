@@ -107,10 +107,10 @@ if(results){
   <tbody id="server-table-body">
     <% list.forEach(function(item){ %>
     <tr id="server-<%= item._id %>">
-      <td id="status-<%= item._id %>" data-value="<%= item.Sever_status %>">
-        <div class="status-badge <%= item.Sever_status === 'online' ? 'online' : 'offline' %>">
+      <td id="status-<%= item._id %>" data-value="<%= item.Server_status %>">
+        <div class="status-badge <%= item.Server_status === 'online' ? 'online' : 'offline' %>">
           <span class="status-dot"></span>
-          <span class="status-text"><%= item.Sever_status %></span>
+          <span class="status-text"><%= item.Server_status %></span>
         </div>
       </td>
       <td><%= item.Category %></td>
@@ -131,7 +131,7 @@ if(results){
       <%= ts || '-' %>
       </td>
       <td class="server-training">
-        <% if(item.Sever_status === 'online'){ %>
+        <% if(item.Server_status === 'online'){ %>
           <a href="/training/<%= item._id %>" class="btn btn-running">
               <span>See Training</span>
               <i class="fa-solid fa-arrow-right"></i>
@@ -168,10 +168,10 @@ if(results){
     <tbody id="server-table-body">
       <% list.forEach(function(item){ %>
       <tr id="server-<%= item._id %>">
-              <td id="status-<%= item._id %>" data-value="<%= item.Sever_status %>">
-        <div class="status-badge <%= item.Sever_status === 'online' ? 'online' : 'offline' %>">
+              <td id="status-<%= item._id %>" data-value="<%= item.Server_status %>">
+        <div class="status-badge <%= item.Server_status === 'online' ? 'online' : 'offline' %>">
           <span class="status-dot"></span>
-          <span class="status-text"><%= item.Sever_status %></span>
+          <span class="status-text"><%= item.Server_status %></span>
         </div>
         <td><%= item.Category %></td>
         <td><%= item.Application %></td>
@@ -192,7 +192,7 @@ if(results){
         </td>
       </td>
       <td class="server-training">
-        <% if(item.Sever_status === 'online'){ %>
+        <% if(item.Server_status === 'online'){ %>
           <a href="/training/<%= item._id %>" class="btn btn-running">
               <span>See Training</span>
               <i class="fa-solid fa-arrow-right"></i>
@@ -236,16 +236,16 @@ socket.on("statusUpdate", (data) => {
   const statusCell = document.getElementById(`status-${data.id}`);
   if (statusCell) {
     // Atualiza o data-value para a ordenação funcionar
-    statusCell.dataset.value = data.Sever_status;
+    statusCell.dataset.value = data.Server_status;
 
     // Determina qual classe de cor usar (online ou offline)
-    const statusClass = data.Sever_status === 'online' ? 'online' : 'offline';
+    const statusClass = data.Server_status === 'online' ? 'online' : 'offline';
     
     // Recria o HTML do badge dentro da célula para garantir que o estilo seja aplicado
     statusCell.innerHTML = `
         <div class="status-badge ${statusClass}">
             <span class="status-dot"></span>
-            <span class="status-text">${data.Sever_status}</span>
+            <span class="status-text">${data.Server_status}</span>
         </div>
     `;
   }
@@ -261,7 +261,7 @@ socket.on("statusUpdate", (data) => {
   if(row){
     const link = row.querySelector('a.btn');
     if(link){
-      if(data.Sever_status === 'online'){
+      if(data.Server_status === 'online'){
         link.className = 'btn btn-running'; 
         link.innerHTML = `<span>See Training</span><i class="fa-solid fa-arrow-right"></i>`;            
         link.href = `/training/${data.id}`;

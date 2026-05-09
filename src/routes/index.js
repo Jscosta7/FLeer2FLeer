@@ -89,7 +89,7 @@ router.post('/be_a_server', upload.single('clientFile'), async (req, res, next) 
     const newServer = new Server({
       Category: category,
       Application: application,
-      Sever_status: 'offline', 
+      Server_status: 'offline', 
       tags: [category.toUpperCase(), application.toUpperCase()], 
       
       Client_archive: []

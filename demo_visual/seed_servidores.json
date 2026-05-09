@@ -25,7 +25,7 @@
     ],
     "Average_round_duration": 683,
     "Completed_Rounds": 9,
-    "Sever_status": "offline",
+    "Server_status": "offline",
     "Total_clients": 0,
     "Training_Parameters": {
       "Training_status": "finished",
@@ -66,7 +66,7 @@
     ],
     "Average_round_duration": 1417,
     "Completed_Rounds": 6,
-    "Sever_status": "offline",
+    "Server_status": "offline",
     "Total_clients": 0,
     "Training_Parameters": {
       "Training_status": "finished",
@@ -110,7 +110,7 @@
     },
     "Average_round_duration": 1034,
     "Completed_Rounds": 3,
-    "Sever_status": "offline",
+    "Server_status": "offline",
     "Total_clients": 0,
     "Training_Parameters": {
       "Training_status": "finished",
@@ -150,7 +150,7 @@
     ],
     "Average_round_duration": 582,
     "Completed_Rounds": 11,
-    "Sever_status": "offline",
+    "Server_status": "offline",
     "Total_clients": 0,
     "Training_Parameters": {
       "Training_status": "finished",
@@ -190,7 +190,7 @@
     ],
     "Average_round_duration": 0,
     "Completed_Rounds": 0,
-    "Sever_status": "offline",
+    "Server_status": "offline",
     "Total_clients": 0,
     "Training_Parameters": {
       "Training_status": "finished",
@@ -231,7 +231,7 @@
     ],
     "Average_round_duration": 919,
     "Completed_Rounds": 12,
-    "Sever_status": "offline",
+    "Server_status": "offline",
     "Total_clients": 0,
     "Training_Parameters": {
       "Training_status": "finished",
@@ -273,7 +273,7 @@
     ],
     "Average_round_duration": 612,
     "Completed_Rounds": 23,
-    "Sever_status": "offline",
+    "Server_status": "offline",
     "Total_clients": 0,
     "Training_Parameters": {
       "Training_status": "finished",

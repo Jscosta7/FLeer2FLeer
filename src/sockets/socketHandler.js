@@ -9,7 +9,7 @@ function formatPayload(doc) {
     if (!doc) return null;
     return {
         id: doc._id,
-        Sever_status: doc.Sever_status,
+        Server_status: doc.Server_status,
         Last_Update: doc.Last_Update,
         Completed_Rounds: doc.Completed_Rounds,
         Average_round_duration: doc.Average_round_duration,
@@ -44,7 +44,7 @@ async function handleTrainingUpdate(io, data) {
             data.id,
             {
                 $set: {
-                    Sever_status: data.Server_status,
+                    Server_status: data.Server_status,
                     Last_Update: new Date(data.last_update),
                     Average_round_duration: newAvg,
                     "Training_Parameters.Training_status": data.Training_status,

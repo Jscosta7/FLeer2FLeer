@@ -1,6 +1,17 @@
+import os
+import random
+import numpy as np
 import tensorflow as tf
 import flwr as fl
 import argparse
+
+# Define a seed via variável de ambiente, padrão é 42
+SEED = int(os.environ.get('FL_SEED', 42))
+
+os.environ['PYTHONHASHSEED'] = str(SEED)
+random.seed(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
 
 # --- Carregamento do Modelo e Dados ---
 model = tf.keras.applications.MobileNetV2((32, 32, 3), classes=10, weights=None)

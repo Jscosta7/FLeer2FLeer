@@ -9,7 +9,7 @@ O objetivo deste artefato é disponibilizar a ferramenta **FLeer2FLeer**, permit
 
 Para garantir uma melhor organização e entendimento da ferramenta, o projeto foi dividido em tres pastas:
 1. **Demo Visual (`/demo_visual`)**: Responsável por possibilitar a visualização da interface da ferramenta e suas funcionalidades.
-2. **Reprodução de Experimentos (`/reproducao_experimentos`)**: Responsável por reproduzir fielmente o experimento citado, extraindo as métricas de tráfego (.pcap) de múltiplos cenários e analisando com o script pyhton.
+2. **Reprodução de Experimentos (`/reproducao_experimento`)**: Responsável por reproduzir fielmente o experimento citado, extraindo as métricas de tráfego (.pcap) de múltiplos cenários e analisando com o script pyhton.
 3. **A Ferramenta (`/src`)** : Onde estão localizados todos os arquivos que fazem parte do F2F.
 ---
 
@@ -41,6 +41,11 @@ Os autores reivindicam os seguintes selos científicos para este artefato:
 
 Os experimentos foram testados em dois ambientes, com as seguintes especificações:
 
+Requisitos de Software:
+Para garantir a fidelidade da reprodução, o ambiente deve possuir:
+* **Docker Engine:** Versão mínima 24.0.0
+* **Docker Compose Plugin:** Versão mínima 2.20.0
+
 Ambiente 1 (mínimo):
 * **Sistema Operacional:** Ubuntu 20.04/22.04, Debian 12 .
 * **Hardware Mínimo:** 2 CPUs (2.0GHz) e 8GB de memória RAM.
@@ -54,27 +59,76 @@ Ambiente 2 (sugerido):
 ---
 
 ## Dependências
-A seguir, são apresentados os passos necessários para configurar as dependências:
+
+Abaixo listamos as dependências necessárias para a execução do projeto:
 
 1. Git
 2. **Docker e Docker Compose:** Essenciais para subir a infraestrutura e rodar os scripts analíticos finais.
 3. **Tcpdump e Tshark:** Necessários apenas para a etapa de Reprodução de Experimentos (captura e análise de pacotes).
 
-**Instalação rápida das ferramentas de rede (Linux/Ubuntu):**
+> Para maximizar a reprodutibilidade, as versões de todas as dependências críticas estão fixadas dentro dos contêineres (Dockerfile e docker-compose_c*.yml). Para as ferramentas de rede (docker, tcpdump), recomenda-se o uso das versões estáveis mais recentes, respeitando os requisitos mínimos declarados.
+
+
+## Preocupações com segurança
+
+A execução dos experimentos e contêineres **não apresenta riscos de segurança conhecidos**. O uso do sudo é exigido pelo utilitário tcpdump para permitir a "escuta" das interfaces de ponte de rede (br-) geradas dinamicamente pelo Docker durante os testes. Os comandos Docker são executados por padrão com sudo, mas é possível que o usuário possua uma instalação do Docker configurada para execução de comandos sem sudo, sem apresentar riscos para a segurança
+
+## Instalação
+
+Para configurar o ambiente de visualização da ferramenta e dos experimentos, siga os passos abaixo:
+
+1. Preparação do Ambiente (ferramentas de rede): 
 
 ```bash
 sudo apt update
 sudo apt install docker-ce docker-compose-plugin tcpdump -y
 ```
 
-## Preocupações com segurança
+2. Clonagem do repositório:
 
-A execução dos experimentos e contêineres **não apresenta riscos de segurança conhecidos**. O uso do sudo é exigido pelo utilitário tcpdump para permitir a "escuta" das interfaces de ponte de rede (br-) geradas dinamicamente pelo Docker durante os testes. Os comandos Docker são executados por padrão com sudo, mas é possível que o usuário possua uma instalação do Docker configurada para execução de comandos sem sudo, sem apresentar riscos para a segurança
+```bash
+git clone <URL_DO_SEU_REPOSITORIO>
+cd FLeer2FLeer
+```
+
+## Teste Mínimo 
+
+Para verificar rapidamente se a infraestrutura do projeto e o banco de dados estão funcionais em sua máquina, execute um ciclo de vida mínimo do F2F.
+
+1. Acesse o diretório onde estão contidos os arquivos Docker responsáveis pela demonstração:
+
+```bash
+cd demo_visual
+```
+2. Inicialize a infraestrutura base:
+
+```bash
+sudo docker compose up -d
+```
+Aguarde o download dos pacotes e módulos, quando o comando terminar de rodar no terminal, acesse http://localhost:4000. Você deverá ver o Dashboard da ferramenta carregado com os dados simulados.
+
+3. Inicie um treinamento federado:
+
+```bash
+sudo docker compose -f docker-compose-treino.yml up -d --build
+```
+
+Acompanhe pelo terminal se os clientes se conectam ao servidor. Uma vez que o treinamento for concluído (ou caso não deseje aguardar o processo completo), proceda com a limpeza do ambiente.
+
+4. Desligue a aplicação e limpe o ambiente
+
+```bash
+sudo docker compose -f docker-compose-treino.yml down
+sudo docker compose down -v
+cd ..
+```
 
 
 ## Visualização da Ferramenta (Demo Visual)
 
-1. Acesse o diretório onde esta contido os arquivos Docker responsáveis pela demonstração:
+Para acompanhar com mais detalhes o comportamento do F2F, suas funcionalidades e um treinamento de Aprendizado Federado, siga os passos abaixo:
+
+1. Acesse o diretório onde estão contidos os arquivos Docker responsáveis pela demonstração:
 
 ```bash
 cd demo_visual
@@ -118,7 +172,7 @@ sudo docker compose down -v
 cd ..
 ```
 
-> A aba do navegador em http://localhost:4000 pode ser fechada, pois ela não será mais necessária no resto do passo-a-passo.
+> A aba do navegador em http://localhost:4000 pode ser fechada, pois ela não será mais necessária no resto do passo a passo.
 
 ## Reprodução do Experimento do artigo
 Esta etapa possibilita recriar os 5 cenários descritos no artigo. O script inicia os cenários, captura o tráfego gerado pelas portas do Flower (8080) e do Indexador (3000), gera os arquivos `.pcap` e destrói o ambiente para o próximo ciclo.
@@ -159,7 +213,7 @@ Exemplo dos logs no início do comando:
 
 Após o script exibir a mensagem de sucesso, os arquivos `.pcap` estarão na mesma pasta (`reproducao_experimento`). Para gerar os resultados, utilize os scripts em Python fornecidos:
 
-> Garanta que você está dentro da pasta `reproducao_experimentos` no terminal antes de executar esses próximos comandos
+> Garanta que você está dentro da pasta `reproducao_experimento` no terminal antes de executar esses próximos comandos
 
 ### Reivindicação #1: O Indexador impõe sobrecarga mínima à rede
 

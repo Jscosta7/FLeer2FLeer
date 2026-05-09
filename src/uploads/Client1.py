@@ -1,6 +1,7 @@
+# Arquivo Client.py padrão com modelo e dataset igual ao Client_arg.py, porém sem a estrutura de argparse e não otimizado para o docker
+# A manutenção do mesmo se deve pelo funcionamento do contador de download, cada client.py esta referenciado no banco de dados para um servidor FL do Dashboard
 import tensorflow as tf
 import flwr as fl
-import argparse
 
 model = tf.keras.applications.MobileNetV2((32, 32, 3), classes=10, weights=None)
 model.compile("adam", "sparse_categorical_crossentropy", metrics=["accuracy"])

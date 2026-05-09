@@ -49,7 +49,7 @@ services:
     build: .
     volumes:
       - ../src:/app
-    command: sh -c "sleep 15 && python -u uploads/Client_arg.py --server_address 'server1:8080'"
+    command: python -u uploads/Client_arg.py --server_address "server1:8080"
     depends_on:
       - server1
     networks:
@@ -59,7 +59,7 @@ services:
     build: .
     volumes:
       - ../src:/app
-    command: sh -c "sleep 15 && python -u uploads/Client_arg.py --server_address 'server1:8080'"
+    command: python -u uploads/Client_arg.py --server_address "server1:8080"
     environment:
       - FL_SEED=${FL_SEED:-42}
     depends_on:
@@ -71,7 +71,7 @@ services:
     build: .
     volumes:
       - ../src:/app
-    command: sh -c "sleep 15 && python -u uploads/Client_arg.py --server_address 'server2:8080'"
+    command: python -u uploads/Client_arg.py --server_address "server2:8080"
     environment:
       - FL_SEED=${FL_SEED:-42}
     depends_on:
@@ -83,7 +83,7 @@ services:
     build: .
     volumes:
       - ../src:/app
-    command: sh -c "sleep 15 && python -u uploads/Client_arg.py --server_address 'server2:8080'"
+    command: python -u uploads/Client_arg.py --server_address "server2:8080"
     environment:
       - FL_SEED=${FL_SEED:-42}    
     depends_on:

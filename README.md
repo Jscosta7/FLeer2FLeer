@@ -45,6 +45,12 @@ Requisitos de Software:
 Para garantir a fidelidade da reprodução, o ambiente deve possuir:
 * **Docker Engine:** Versão mínima 24.0.0
 * **Docker Compose Plugin:** Versão mínima 2.20.0
+Além disso para garantir a execução plena do artefato, atente-se aos requisitos de Sistema Operacional:
+* **Para a Ferramenta (Demo Visual):** Qualquer sistema operacional (Linux, macOS, Windows).
+* **Para os Experimentos (SeloR):** É obrigatório o uso de **Linux nativo** (recomendado Ubuntu 20.04/22.04 ou Debian 12).
+
+> Em macOS/Windows, o Docker virtualiza a rede e não expõe as interfaces `br-*` ao hospedeiro, tornando o `tcpdump` inoperante. Nesses casos, utilize uma VM Linux ou WSL2.
+
 
 Ambiente 1 (mínimo):
 * **Sistema Operacional:** Ubuntu 20.04/22.04, Debian 12 .
@@ -106,6 +112,9 @@ cd demo_visual
 sudo docker compose up -d
 ```
 Aguarde o download dos pacotes e módulos, quando o comando terminar de rodar no terminal, acesse http://localhost:4000. Você deverá ver o Dashboard da ferramenta carregado com os dados simulados.
+
+> **Nota para Execução Remota:** Caso esteja avaliando este artefato em um servidor remoto (nuvem) ou via SSH, você precisará redirecionar a porta para acessar a interface na sua máquina local. Ao conectar no servidor, utilize o parâmetro de port-forwarding: 
+> `ssh -L 4000:localhost:4000 usuario@ip_do_servidor`
 
 3. Inicie um treinamento federado:
 
@@ -175,7 +184,17 @@ cd ..
 > A aba do navegador em http://localhost:4000 pode ser fechada, pois ela não será mais necessária no resto do passo a passo.
 
 ## Reprodução do Experimento do artigo
-Esta etapa possibilita recriar os 5 cenários descritos no artigo. O script inicia os cenários, captura o tráfego gerado pelas portas do Flower (8080) e do Indexador (3000), gera os arquivos `.pcap` e destrói o ambiente para o próximo ciclo.
+Esta etapa possibilita recriar os 5 cenários descritos no artigo. O script inicia os cenários, captura o tráfego gerado pelas portas do Flower (8080) e do Indexador (3000), gera os arquivos `.pcap` e destrói o ambiente para o próximo ciclo. Para facilitar a compreensão de cada etapa do experimento, abaixo está uma descrição dos cenários:
+
+| Cenário | Qtd. Servidores | Qtd. Clientes 
+| :--- | :---: | :---: | :--- |
+| **Cenário 1 (c1)** | 1 | 2 | 
+| **Cenário 2 (c2)** | 2 | 4 | 
+| **Cenário 3 (c3)** | 3 | 6 | 
+| **Cenário 4 (c4)** | 4 | 8 | 
+| **Cenário 5 (c5)** | 5 | 10 | 
+
+É importante ressaltar que todos os cenários contribuem para a sustentação da Reivindicação #2. Já em relação à Reivindicação #1, os cenários com maior quantidade de servidores demandam mais do Indexador, devido ao constante aumento na carga de orquestração que ele deve realizar.
 
 ### Passo a Passo Geral da Execução
 
@@ -195,12 +214,14 @@ chmod +x rodar_experimentos.sh
 
 3. Execute os experimentos:
 
-Por ser um processo demorado, a fim de facilitar a reprodução, o script possibilita ajustar o número de cenários (1 até 5) e o número de rodadas (1 até 5). O recomendável para uma validação mais rápida são 2 cenários e 2 rounds. 
+O script possibilita ajustar o número de cenários (1 até 5) e o número de rodadas (1 até 5). Abaixo está o tempo médio da bateria completa e cada rodada, por cenário:
 
->Caso deseje rodar a bateria completa do artigo, basta executar sudo ./rodar_experimentos.sh sem parâmetros. Entretanto, este comando pode demorar um tempo considerável, mesmo no ambiente sugerido
+Para garantir a reprodutibilidade exata dos experimentos e permitir comparações justas de métricas futuras, as seeds de aleatoriedade (TensorFlow, NumPy e Random) foram fixadas. A seed escolhida como padrão é a 42, poré é possível passar uma nova seed diretamente como argumento na execução do script.
+
+>Caso deseje rodar a bateria completa do artigo, basta executar sudo ./rodar_experimentos.sh sem parâmetros.
 
 ```bash
-sudo ./rodar_experimentos.sh rounds=2 cenarios=2
+sudo ./rodar_experimentos.sh rounds=2 cenarios=2 seed=42
 ```
 
 Este processo leva tempo, pois treina modelos de Machine Learning reais em contêineres e aguarda o tempo de sincronização da rede. O comando exige privilégios de administrador (sudo) para habilitar o tcpdump e controlar o Docker.

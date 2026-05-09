@@ -10,6 +10,4 @@ COPY . /app
 
 RUN pip install --no-cache-dir flwr==1.5.0 tensorflow-cpu==2.13.0 python-socketio requests
 
-RUN python -c "import tensorflow as tf; tf.keras.datasets.cifar10.load_data()"
-
 CMD ["python", "server_f2f.py"]

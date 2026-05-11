@@ -52,11 +52,11 @@ Além disso para garantir a execução plena do artefato, atente-se aos requisit
 > Em macOS/Windows, o Docker virtualiza a rede e não expõe as interfaces `br-*` ao hospedeiro, tornando o `tcpdump` inoperante. Nesses casos, utilize uma VM Linux ou WSL2.
 
 
-Ambiente 1 (mínimo):
+Ambiente 1 (mínimo para executar a demo visual)
 * **Sistema Operacional:** Ubuntu 20.04/22.04, Debian 12 .
 * **Hardware Mínimo:** 2 CPUs (2.0GHz) e 8GB de memória RAM.
   
-Ambiente 2 (sugerido):
+Ambiente 2 (sugerido para rodar os experimentos):
 * **Sistema Operacional:** Ubuntu 20.04/22.04, Debian 12 .
 * **Hardware sugerido:** Intel i9-10900 CPUs, 32GB RAM, 20 threads.
 
